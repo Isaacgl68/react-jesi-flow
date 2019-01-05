@@ -1,1 +1,1 @@
-# react-jesi-flow
+# jesi-flow-react
