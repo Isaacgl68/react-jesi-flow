@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`User <Form /> 1`] = `
+<form
+  noValidate={true}
+  onSubmit={[Function]}
+>
+  <label>
+    First Name 
+    <input
+      onChange={[Function]}
+      type="text"
+    />
+  </label>
+  <label>
+    Last Name 
+    <input
+      onChange={[Function]}
+      type="text"
+    />
+  </label>
+  <p />
+</form>
+`;
+
+exports[`User <Form /> with store 1`] = `
+<form
+  noValidate={true}
+  onSubmit={[Function]}
+>
+  <label>
+    First Name 
+    <input
+      onChange={[Function]}
+      type="text"
+      value="Test"
+    />
+  </label>
+  <label>
+    Last Name 
+    <input
+      onChange={[Function]}
+      type="text"
+      value="Test"
+    />
+  </label>
+  <p>
+    Test Test
+  </p>
+</form>
+`;

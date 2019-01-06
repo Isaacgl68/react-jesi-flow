@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`User store Store setState 1`] = `
+Object {
+  "first": "Test",
+  "fullName": "Test Test",
+  "last": "Test",
+}
+`;
+
+exports[`User store Store snap 1`] = `
+Object {
+  "first": "Alon",
+  "fullName": "Alon Valadji",
+  "last": "Valadji",
+}
+`;
