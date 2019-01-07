@@ -1,3 +1,5 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Node template
 # Logs
 logs
 *.log
@@ -34,6 +36,7 @@ build/Release
 
 # Dependency directories
 node_modules/
+dist/
 jspm_packages/
 
 # TypeScript v1 declaration files
@@ -57,5 +60,8 @@ typings/
 # dotenv environment variables file
 .env
 
+
 # next.js build output
 .next
+.idea
+.dist

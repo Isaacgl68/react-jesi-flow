@@ -1,4 +1,4 @@
+import DonutLarge from '@material-ui/icons/DonutLarge';
 
-
-const IconsConfiguration = {}
+const IconsConfiguration = {startIcon:DonutLarge}
 export default IconsConfiguration;
