@@ -14,9 +14,9 @@ class FlowCanvasPanel extends Component {
         super(props);
     }
     render() {
-        return <div>
+        return <Grid container alignItems="center" justify="center" direction="column">
                 <FlowComponent></FlowComponent>
-        </div>;
+        </Grid>;
 
     }
 

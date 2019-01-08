@@ -6,6 +6,8 @@ import Fab from '@material-ui/core/Fab';
 import Typography from '@material-ui/core/Typography';
 import'./flowComponent.scss';
 import StartIcon from '@material-ui/icons/DonutLarge';
+import ArrowDownThick from 'mdi-react/ArrowDownThickIcon';
+
 
 @observer
 class FlowComponent extends Component {
@@ -15,14 +17,21 @@ class FlowComponent extends Component {
     }
     render() {
         const {config} = this.props;
-        return <Grid container alignItems="center" className="flowComponentRoot" justify="center"  spacing={24}>
+
+        return  <div className="flowComponentRoot">
+            { /* <Grid container direction="column" alignItems="center" justify="center"  spacing={24}> */}
+            <div className="flowHeader">
                 <Fab color="primary" aria-label="Add" className="selectionButton" size="medium">
                     <StartIcon/>
                 </Fab>
                 <Typography variant="subtitle1" className="selectionText">
                    Start
                 </Typography>
-            </Grid>;
+            </div>
+                <ArrowDownThick size={70} color="#3f51b5" className="arrow"/>
+
+                {/* </Grid> */}
+        </div>;
 
 
     }
