@@ -3,12 +3,12 @@ import BaseFlowDataType from "./BaseFlowDataType";
 
 class BaseContainerDataType extends BaseFlowDataType{
 
-    @observable.shadow children = [];
+    @observable.shallow  children;
 
     constructor({children, ...config}= {}){
         super(config);
 
-        this.children = children;
+        this.children = children || [];
     }
 
 
@@ -18,4 +18,4 @@ class BaseContainerDataType extends BaseFlowDataType{
 
 }
 
-export default IfDataType;
+export default BaseContainerDataType;

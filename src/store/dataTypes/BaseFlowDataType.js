@@ -1,4 +1,5 @@
 import { observable, action, computed } from 'mobx';
+import uuidv1  from 'uuid/v1';
 
 class BaseFlowDataType {
     @observable objectIndex = 0;
@@ -7,7 +8,7 @@ class BaseFlowDataType {
 
     constructor({objectIndex, objectId, type } = {}){
 
-        this.objectId = objectId;
+        this.objectId = objectId || uuidv1();
         this.type = type;
         this.objectIndex = objectIndex;
     }

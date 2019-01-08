@@ -1,8 +1,8 @@
-import {isObject} from "mobx/lib/utils/utils";
 import * as FlowNodeTypes from '../utils/consts/FlowNodeTypes';
 import Icons from './IconsConfiguration';
 
 const typeConfigMap = new Map([
+    [FlowNodeTypes.START,{type:FlowNodeTypes.START, dataName:'BaseFlowDataType', icon:Icons['startIcon'],label: 'Start', editorName:null, componentName:'' }],
     [FlowNodeTypes.ASSIGN,{type:FlowNodeTypes.ASSIGN, dataName:'AssignDataType', icon:'',label: 'Assign', editorName:'', componentName:'' }],
     [FlowNodeTypes.EXIT,{type:FlowNodeTypes.EXIT, dataName:'ExitDataType', icon:'',label: 'Exit', editorName:'', componentName:'' }],
     [FlowNodeTypes.IF,{type:FlowNodeTypes.IF, dataName:'IfDataType', icon:'',label: 'If/Else', editorName:'', componentName:'' }],

@@ -44,9 +44,11 @@
     "mdi-react": "^5.1.0",
     "mobx": "^5.0.3",
     "mobx-react": "^5.2.3",
+    "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "typeface-roboto": "0.0.54"
+    "typeface-roboto": "0.0.54",
+    "uuid": "^3.3.2"
   },
   "jest": {
     "cache": false,

@@ -1,41 +1,44 @@
 import React, {Component} from 'react';
 import {observable, action} from 'mobx';
 import {observer} from 'mobx-react';
-import Grid from '@material-ui/core/Grid';
 import Fab from '@material-ui/core/Fab';
 import Typography from '@material-ui/core/Typography';
 import'./flowComponent.scss';
-import StartIcon from '@material-ui/icons/DonutLarge';
 import ArrowDownThick from 'mdi-react/ArrowDownThickIcon';
-
+import PropTypes from 'prop-types';
+import AppConfiguration from "../../controler/AppConfiguration";
+import BaseContainerDataType from "../../store/dataTypes/BaseContainerDataType";
+import BaseFlowDataType from "../../store/dataTypes/BaseFlowDataType";
 
 @observer
 class FlowComponent extends Component {
 
     constructor(props) {
         super(props);
+        this.config = AppConfiguration.getTypeByName(this.props.flowData.type)||{};
     }
     render() {
-        const {config} = this.props;
+
 
         return  <div className="flowComponentRoot">
-            { /* <Grid container direction="column" alignItems="center" justify="center"  spacing={24}> */}
             <div className="flowHeader">
                 <Fab color="primary" aria-label="Add" className="selectionButton" size="medium">
-                    <StartIcon/>
+                    {React.createElement(this.config.icon)}
                 </Fab>
                 <Typography variant="subtitle1" className="selectionText">
-                   Start
+                   {this.config.label}
                 </Typography>
             </div>
                 <ArrowDownThick size={70} color="#3f51b5" className="arrow"/>
-
-                {/* </Grid> */}
         </div>;
 
 
     }
 
 }
+
+FlowComponent.propTypes = {
+    flowData: PropTypes.instanceOf(BaseFlowDataType).isRequired,
+};
 
 export default FlowComponent;
