@@ -1,13 +1,8 @@
 import * as FlowNodeTypes from '../utils/consts/FlowNodeTypes';
 import Icons from './IconsConfiguration';
 
-const typeConfigMap = new Map([
-    [FlowNodeTypes.START,{type:FlowNodeTypes.START, dataName:'BaseFlowDataType', icon:Icons['startIcon'],label: 'Start', editorName:null, componentName:'' }],
-    [FlowNodeTypes.ASSIGN,{type:FlowNodeTypes.ASSIGN, dataName:'AssignDataType', icon:'',label: 'Assign', editorName:'', componentName:'' }],
-    [FlowNodeTypes.EXIT,{type:FlowNodeTypes.EXIT, dataName:'ExitDataType', icon:'',label: 'Exit', editorName:'', componentName:'' }],
-    [FlowNodeTypes.IF,{type:FlowNodeTypes.IF, dataName:'IfDataType', icon:'',label: 'If/Else', editorName:'', componentName:'' }],
-    [FlowNodeTypes.WHILE,{type:FlowNodeTypes.WHILE, dataName:'WhileDataType', icon:'',label: 'While', editorName:'', componentName:'' }],
-    ]);
+import {default as FlowComponent} from "../components/flowComponents/FlowComponent";
+
 
 const tagsToTypeMapping = new Map([
     ['assign',FlowNodeTypes.ASSIGN],
@@ -16,17 +11,33 @@ const tagsToTypeMapping = new Map([
     ['while',FlowNodeTypes.WHILE]
 
 ]);
+
+
 class AppConfiguration{
-    static get  typesMap(){
-        return typeConfigMap;
+
+    _typeConfigMap = null;
+    initTypeConfigMap(){
+        this._typeConfigMap = new Map([
+            [FlowNodeTypes.START,{type:FlowNodeTypes.START, dataName:'BaseFlowDataType', icon:Icons['startIcon'],label: 'Start', editorName:null, component:SimpleFlowContainer }],
+            [FlowNodeTypes.ASSIGN,{type:FlowNodeTypes.ASSIGN, dataName:'AssignDataType', icon:Icons['startIcon'],label: 'Assign', editorName:'', component: FlowComponent }],
+            [FlowNodeTypes.EXIT,{type:FlowNodeTypes.EXIT, dataName:'ExitDataType', icon:'',label: 'Exit', editorName:'', component:FlowComponent }],
+            [FlowNodeTypes.IF,{type:FlowNodeTypes.IF, dataName:'IfDataType', icon:'',label: 'If/Else', editorName:'', component:null }],
+            [FlowNodeTypes.WHILE,{type:FlowNodeTypes.WHILE, dataName:'WhileDataType', icon:'',label: 'While', editorName:'', component:null }],
+        ]);
     }
-    static getTypeByName(typeName){
-        return typeConfigMap.get(typeName);
+    get  typesMap(){
+        if (!this._typeConfigMap)this.initTypeConfigMap();
+        return this._typeConfigMap;
+    }
+    getTypeByName(typeName){
+
+        const config = this.typesMap.get(typeName);
+        return config;
     }
 
-    static getTypeByTag(tagName){
+    getTypeByTag(tagName){
         const type =  tagsToTypeMapping.get(tagName);
-        return typeConfigMap.get(type);
+        return this.typesMap.get(type);
     }
 }
-export default AppConfiguration;
+export default new AppConfiguration();

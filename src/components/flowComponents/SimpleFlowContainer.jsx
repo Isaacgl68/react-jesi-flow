@@ -21,7 +21,8 @@ class SimpleFlowContainer extends Component {
        return <Fragment>
            {
                this.props.flowData.children.map(childData => {
-                   React.createElement(this.config.component,{flowData:childData});
+                   const childConfig = AppConfiguration.getTypeByName(childData.type);
+                  return React.createElement(childConfig.component,{flowData:childData, key:childData.key});
                })
            }
         </Fragment>;

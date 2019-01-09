@@ -3,12 +3,12 @@ import uuidv1  from 'uuid/v1';
 
 class BaseFlowDataType {
     @observable objectIndex = 0;
-    objectId;
+    key;
     type;
 
-    constructor({objectIndex, objectId, type } = {}){
+    constructor({objectIndex, key, type } = {}){
 
-        this.objectId = objectId || uuidv1();
+        this.key = key || uuidv1();
         this.type = type;
         this.objectIndex = objectIndex;
     }

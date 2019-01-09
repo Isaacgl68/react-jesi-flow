@@ -19,6 +19,8 @@ class FlowCanvasPanel extends Component {
     }
     render() {
         const startData = new BaseContainerDataType({type:FlowNodeTypes.START});
+        const childData = new BaseFlowDataType({type:FlowNodeTypes.ASSIGN});
+        startData.children = [childData];
         return <Grid container alignItems="center" justify="center" direction="column">
                 <SimpleFlowContainer flowData={startData}></SimpleFlowContainer>
         </Grid>;
