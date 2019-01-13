@@ -25,6 +25,14 @@ class AssignDataType extends BaseFlowDataType{
         return xml;
     }
 
+    toJSON(){
+        let obj = super.toJSON();
+        obj.name = this.name;
+        obj.from = this.from;
+        obj.to = this.to;
+        return obj;
+    }
+
     @action parseInputXML(inputXml) {
 
     }

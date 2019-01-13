@@ -30,6 +30,13 @@ class WhileDataType extends BaseContainerDataType {
 
     }
 
+    toJSON(){
+        let obj = super.toJSON();
+        obj.name = this.name;
+        obj.condition = this.condition;
+        return obj;
+    }
+
 }
 
 export default WhileDataType;

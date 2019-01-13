@@ -9,30 +9,34 @@ import PropTypes from 'prop-types';
 import AppConfiguration from "../../controler/AppConfiguration";
 import BaseContainerDataType from "../../store/dataTypes/BaseContainerDataType";
 import FlowComponent from "./FlowComponent";
+import Paper from "@material-ui/core/Paper";
+
 
 @observer
 class SimpleFlowContainer extends Component {
+
+
 
     constructor(props) {
         super(props);
         this.config = AppConfiguration.getTypeByName(this.props.flowData.type)||{};
     }
     renderChildrenComponents(){
-       return <Fragment>
+       return <Paper className="childrenComponents">
            {
                this.props.flowData.children.map(childData => {
                    const childConfig = AppConfiguration.getTypeByName(childData.type);
                   return React.createElement(childConfig.component,{flowData:childData, key:childData.key});
                })
            }
-        </Fragment>;
+           </Paper>;
     }
     render() {
 
-        return <Grid container alignItems="center" justify="center" direction="column">
+        return <div className="flowContainerRoot"><Grid container alignItems="center" justify="center" direction="column" >
             <FlowComponent flowData={this.props.flowData}></FlowComponent>
             {this.renderChildrenComponents()}
-        </Grid>;
+        </Grid></div>;
 
 
     }

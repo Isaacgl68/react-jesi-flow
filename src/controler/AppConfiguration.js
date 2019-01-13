@@ -1,7 +1,14 @@
 import * as FlowNodeTypes from '../utils/consts/FlowNodeTypes';
-import Icons from './IconsConfiguration';
+import {initTypeConfigMap} from './Configuration';
 
-import {default as FlowComponent} from "../components/flowComponents/FlowComponent";
+/*import {default as FlowComponent} from "../components/flowComponents/FlowComponent";
+import SimpleFlowContainer from "../components/flowComponents/SimpleFlowContainer";
+//import BaseFlowDataType from "../store/dataTypes/BaseFlowDataType";
+import AssignDataType from "../store/dataTypes/AssignDataType";
+import ExitDataType from "../store/dataTypes/ExitDataType";
+import IfDataType from "../store/dataTypes/IfDataType";
+import WhileDataType from "../store/dataTypes/WhileDataType";
+import DataTypeFactory from "../store/dataTypes/DataTypeFactory";*/
 
 
 const tagsToTypeMapping = new Map([
@@ -16,23 +23,21 @@ const tagsToTypeMapping = new Map([
 class AppConfiguration{
 
     _typeConfigMap = null;
-    initTypeConfigMap(){
-        this._typeConfigMap = new Map([
-            [FlowNodeTypes.START,{type:FlowNodeTypes.START, dataName:'BaseFlowDataType', icon:Icons['startIcon'],label: 'Start', editorName:null, component:SimpleFlowContainer }],
-            [FlowNodeTypes.ASSIGN,{type:FlowNodeTypes.ASSIGN, dataName:'AssignDataType', icon:Icons['startIcon'],label: 'Assign', editorName:'', component: FlowComponent }],
-            [FlowNodeTypes.EXIT,{type:FlowNodeTypes.EXIT, dataName:'ExitDataType', icon:'',label: 'Exit', editorName:'', component:FlowComponent }],
-            [FlowNodeTypes.IF,{type:FlowNodeTypes.IF, dataName:'IfDataType', icon:'',label: 'If/Else', editorName:'', component:null }],
-            [FlowNodeTypes.WHILE,{type:FlowNodeTypes.WHILE, dataName:'WhileDataType', icon:'',label: 'While', editorName:'', component:null }],
-        ]);
-    }
+
     get  typesMap(){
-        if (!this._typeConfigMap)this.initTypeConfigMap();
+        if (!this._typeConfigMap)this._typeConfigMap = initTypeConfigMap();
         return this._typeConfigMap;
     }
     getTypeByName(typeName){
 
         const config = this.typesMap.get(typeName);
         return config;
+    }
+
+    getRunTimeTypeByName(typeName,props){
+
+        const runtimeClass = this.getTypeByName(typeName).dataClass;
+        return  new runtimeClass(props);
     }
 
     getTypeByTag(tagName){

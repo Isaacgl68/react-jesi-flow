@@ -9,6 +9,7 @@ import AppConfiguration from "../controler/AppConfiguration";
 import * as FlowNodeTypes from "../utils/consts/FlowNodeTypes";
 import BaseContainerDataType from "../store/dataTypes/BaseContainerDataType";
 import SimpleFlowContainer from "../components/flowComponents/SimpleFlowContainer";
+import Store from "../store/Store"
 
 
 @observer
@@ -17,10 +18,12 @@ class FlowCanvasPanel extends Component {
     constructor(props) {
         super(props);
     }
+
+
     render() {
-        const startData = new BaseContainerDataType({type:FlowNodeTypes.START});
-        const childData = new BaseFlowDataType({type:FlowNodeTypes.ASSIGN});
-        startData.children = [childData];
+        const  startData = Store.flowTree;
+        //const childData = new BaseFlowDataType({type:FlowNodeTypes.ASSIGN});
+        //startData.children = [childData];
         return <Grid container alignItems="center" justify="center" direction="column">
                 <SimpleFlowContainer flowData={startData}></SimpleFlowContainer>
         </Grid>;

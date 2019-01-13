@@ -26,6 +26,12 @@ class ExitDataType extends BaseFlowDataType{
 
     }
 
+    toJSON(){
+        let obj = super.toJSON();
+        obj.text = this.text;
+        return obj;
+    }
+
 }
 
 export default ExitDataType;

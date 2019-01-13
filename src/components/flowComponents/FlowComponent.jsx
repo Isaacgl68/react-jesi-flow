@@ -7,24 +7,71 @@ import'./flowComponent.scss';
 import ArrowDownThick from 'mdi-react/ArrowDownThickIcon';
 import PropTypes from 'prop-types';
 import AppConfiguration from "../../controler/AppConfiguration";
-import BaseContainerDataType from "../../store/dataTypes/BaseContainerDataType";
 import BaseFlowDataType from "../../store/dataTypes/BaseFlowDataType";
+//////////////////
+import SpeedDial from '@material-ui/lab/SpeedDial';
+import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
+import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
+import AddIcon from '@material-ui/icons/Add';
+import MoreVert from '@material-ui/icons/MoreVert';
+import DeleteIcon from '@material-ui/icons/Delete';
+import Store from "../../store/Store";
+
+
+const actions = [
+    { icon: <AddIcon />, name:'add' },
+    { icon: <DeleteIcon />, name:'delete'},
+    { icon: <MoreVert /> ,name:'more'},
+
+];
 
 @observer
 class FlowComponent extends Component {
+
 
     constructor(props) {
         super(props);
         this.config = AppConfiguration.getTypeByName(this.props.flowData.type)||{};
     }
+
+    isOpen(){
+        return (!this.config.hideMenu && Store.activeComponent === this)
+    }
+
+    handleClick = () => {
+        Store.setActiveComponent(this);
+        /*this.setState(state => ({
+            open: !state.open,
+        }));*/
+    };
     render() {
 
 
+        //icon={React.createElement(this.config.icon)}
         return  <div className="flowComponentRoot">
             <div className="flowHeader">
-                <Fab color="primary" aria-label="Add" className="selectionButton" size="medium">
+                <SpeedDial
+                    className="selectionButton"
+                    ariaLabel={"SpeedDial"+this.props.flowData.key}
+                    icon={<SpeedDialIcon  icon={React.createElement(this.config.icon)}/>}
+                    onClick={this.handleClick}
+                    open={this.isOpen()}
+                    direction="left"
+                    hidden={false}
+                >
+                    {actions.map(action => (
+                        <SpeedDialAction
+                            key={action.name}
+                            icon={action.icon}
+                            tooltipTitle={action.name}
+                            tooltipPlacement="top"
+                            onClick={this.handleClick}
+                        />
+                    ))}
+                </SpeedDial>
+                {/*<Fab color="primary" aria-label="Add" className="selectionButton" size="medium">
                     {React.createElement(this.config.icon)}
-                </Fab>
+                </Fab> */}
                 <Typography variant="subtitle1" className="selectionText">
                    {this.config.label}
                 </Typography>

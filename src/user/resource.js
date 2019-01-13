@@ -1,4 +1,4 @@
-import Store from './store';
+import Store from '../store/Store';
 import data from './db';
 
 const store = new Store;

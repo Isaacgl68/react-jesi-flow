@@ -1,4 +1,14 @@
 {
-  "first": "Roman",
-  "last": "Horsun"
+  "type": "start",
+  "children": [
+    {"type":  "assign"},
+    {"type": "while",
+      "children": [{"type":  "assign"},
+        {"type": "while",
+          "children": [{"type":  "assign"}]
+        }
+      ]
+    },
+    {"type":  "exit"}
+  ]
 }

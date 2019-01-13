@@ -1,9 +1,13 @@
+import BaseContainerDataType from './BaseContainerDataType'
 import AssignDataType from './AssignDataType';
 import ExitDataType from './ExitDataType';
 import IfDataType from './IfDataType';
 import WhileDataType from './WhileDataType';
+import BaseFlowDataType from "./BaseFlowDataType";
 
 const classes ={
+    BaseFlowDataType,
+    BaseContainerDataType,
     AssignDataType,
     ExitDataType,
     IfDataType,

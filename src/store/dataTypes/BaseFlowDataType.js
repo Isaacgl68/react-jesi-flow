@@ -1,5 +1,6 @@
 import { observable, action, computed } from 'mobx';
 import uuidv1  from 'uuid/v1';
+import AppConfiguration from "../../controler/AppConfiguration";
 
 class BaseFlowDataType {
     @observable objectIndex = 0;
@@ -13,6 +14,15 @@ class BaseFlowDataType {
         this.objectIndex = objectIndex;
     }
     get toolTip() {return ''; }
+
+    toJSON(){
+        let {key, type, objectIndex} = this;
+        return {key, type, objectIndex};
+    }
+
+    static fromJSON(jsonObj){
+        return  AppConfiguration.getRunTimeTypeByName(jsonObj.type,jsonObj);
+    }
 
 
     get outputXML() { return '';}

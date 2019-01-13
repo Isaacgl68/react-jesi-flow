@@ -1,25 +1,35 @@
 .flowComponentRoot{
   width: 200px;
+  margin: auto;
   .flowHeader {
-
+    width: 200px;
     padding: 12px 8px 8px 8px;
     .selectionButton{
-      left: 70px;
+      position: absolute;
+      transform: translateX(-50%);
+      -webkit-transform: translateX(-50%);
     }
     .selectionText{
       position: relative;
-      left: 70px;
-      top: 3px;
+      left: 118px;
+      top: 18px;
       display: inline-block;
       margin-left: 8px;
     }
   }
   .arrow{
-    left: 67px;
     position: relative;
-    top: -22px;
+    top: 5px;
     z-index: 10;
+    width: 200px;
   }
 
+}
+.flowContainerRoot{
+  border: 1px solid black;
+  .childrenComponents{
+    margin: 15px;
+
+  }
 }
 
