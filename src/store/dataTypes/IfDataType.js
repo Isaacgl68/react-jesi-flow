@@ -36,7 +36,7 @@ class IfDataType extends BaseContainerDataType{
         let obj = super.toJSON();
         const ifChild = this.ifChild.map( child => child.toJSON());
         const elseChild = this.elseChild.map( child => child.toJSON());
-        obj.children = children;
+        //obj.children = children;
         obj.name = this.name;
         obj.condition = this.condition;
         obj.ifChild = ifChild;

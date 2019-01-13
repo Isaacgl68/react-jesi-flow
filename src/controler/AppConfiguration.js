@@ -19,11 +19,20 @@ const tagsToTypeMapping = new Map([
 
 ]);
 
+const newTypesSelectionList = [
+    FlowNodeTypes.ASSIGN,
+    FlowNodeTypes.IF,
+    FlowNodeTypes.WHILE,
+    FlowNodeTypes.EXIT]
+
 
 class AppConfiguration{
 
     _typeConfigMap = null;
 
+    get  newTypesSelectionList(){
+       return newTypesSelectionList;
+    }
     get  typesMap(){
         if (!this._typeConfigMap)this._typeConfigMap = initTypeConfigMap();
         return this._typeConfigMap;
