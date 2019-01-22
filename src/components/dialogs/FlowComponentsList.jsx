@@ -5,6 +5,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import AppConfiguration from "../../controler/AppConfiguration";
+import DefaultIcon from 'mdi-react/RadioButtonUncheckedIcon';
+
 
 class FlowComponentsList extends Component {
 
@@ -34,7 +36,7 @@ class FlowComponentsList extends Component {
                              selected={this.state.selectedItem === item}
                              onClick={event => this.handleListItemClick(event, item)}>
                 <ListItemIcon>
-                    {(config.icon)?React.createElement(config.icon):React.createElement('defaultIcon')}
+                    {(config.icon)?React.createElement(config.icon):React.createElement(DefaultIcon)}
                 </ListItemIcon>
                 <ListItemText primary={config.label}/>
             </ListItem>

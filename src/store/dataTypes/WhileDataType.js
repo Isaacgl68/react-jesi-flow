@@ -11,7 +11,7 @@ class WhileDataType extends BaseContainerDataType {
     constructor({name, condition, ...config}= {}){
         super(config);
         this.type = FlowNodeTypes.WHILE;
-        this.children.push(new BaseContainerDataType({type:FlowNodeTypes.WHILE_CHILD}));
+        //this.children.push(new BaseContainerDataType({type:FlowNodeTypes.WHILE_CHILD}));
         this.name = name;
         this.condition = condition;
     }

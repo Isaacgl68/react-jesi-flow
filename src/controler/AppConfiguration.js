@@ -29,13 +29,17 @@ const newTypesSelectionList = [
 class AppConfiguration{
 
     _typeConfigMap = null;
+    constructor(){
+        this.getTypeByName = this.getTypeByName.bind(this);
+    }
 
     get  newTypesSelectionList(){
        return newTypesSelectionList;
     }
     get  typesMap(){
-        if (!this._typeConfigMap)this._typeConfigMap = initTypeConfigMap();
-        return this._typeConfigMap;
+        const that = this;
+        if (!that._typeConfigMap)that._typeConfigMap = initTypeConfigMap();
+        return that._typeConfigMap;
     }
     getTypeByName(typeName){
 

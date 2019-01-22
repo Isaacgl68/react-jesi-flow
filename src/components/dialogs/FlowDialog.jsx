@@ -51,10 +51,9 @@ class FlowDialog extends Component {
     };
 
     createContentComponent(){
-        const { contentComponent, contentComponentParams } = this.props;
-        this.contentComponentRef
-            =  React.createElement(this.props.contentComponent, contentComponentParams );
-        return this.contentComponentRef;
+        const { contentComponent, contentComponentParams = {} } = this.props;
+        contentComponentParams.ref = (ref)=> {this.contentComponentRef = ref};
+            return  React.createElement(this.props.contentComponent, contentComponentParams );
     }
 
     render() {
@@ -66,9 +65,8 @@ class FlowDialog extends Component {
             onEntering={this.handleEntering}
             aria-labelledby="confirmation-dialog-title"
             open={this.state.open}
-            {...other}
         >
-            <DialogTitle id="confirmation-dialog-title">{title}</DialogTitle>
+            <DialogTitle id="confirmation-dialog-title"><div>{title}</div></DialogTitle>
             <DialogContent>
                 {this.createContentComponent()}
             </DialogContent>
@@ -82,7 +80,7 @@ class FlowDialog extends Component {
 FlowDialog.propTypes = {
     onClose: PropTypes.func,
     title:PropTypes.string,
-    contentComponent:PropTypes.instanceOf(Component).isRequired,
+    contentComponent:PropTypes.func.isRequired,
     contentComponentParams:PropTypes.object
 };
 

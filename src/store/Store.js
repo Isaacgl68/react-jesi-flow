@@ -19,10 +19,12 @@ class Store {
 	@action setActiveComponent(component){
 		this.activeComponent = component;
 	}
-	@action addComponent(componentTypeName, targetArray, insertAfterKey){
-		const newComp =new AppConfiguration.getTypeByName(componentTypeName).dataClass();
-		if(insertAfter){
-			const index = targetArray.findIndex(component => component.key === insertAfterKey);
+	@action addComponent(componentTypeName, targetArray, encoreKey, insertBeforeInd){
+		const dataClass  = AppConfiguration.getTypeByName(componentTypeName).dataClass;
+		const newComp =new dataClass();
+		if(encoreKey){
+			let index = targetArray.findIndex(component => component.key === encoreKey);
+			index = (insertBeforeInd) ? index: index +1;
 			targetArray.splice(index, 0, newComp);
 		}else{
 			targetArray.push(newComp);

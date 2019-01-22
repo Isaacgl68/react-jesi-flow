@@ -35,6 +35,7 @@ class FlowComponent extends Component {
     constructor(props) {
         super(props);
         this.config = AppConfiguration.getTypeByName(this.props.flowData.type) || {};
+        this.onAddClose = this.onAddClose.bind(this);
     }
 
     isOpen() {

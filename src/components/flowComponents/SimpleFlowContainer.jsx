@@ -21,12 +21,24 @@ class SimpleFlowContainer extends Component {
     constructor(props) {
         super(props);
         this.config = AppConfiguration.getTypeByName(this.props.flowData.type)||{};
+        this.onInsert = this.onInsert.bind(this);
+        this.onAppend = this.onAppend.bind(this);
+        this.onDelete = this.onDelete.bind(this);
+        this.onDeleteSelf = this.onDeleteSelf.bind(this);
     }
     onInsert(newComponentName, childKey ){
         Store.addComponent(newComponentName,this.props.flowData.children, childKey);
     }
+    onAppend(newComponentName){
+        Store.addComponent(newComponentName,this.props.flowData.children);
+    }
     onDelete(childKey){
         Store.deleteComponent(childKey,this.props.flowData.children );
+    }
+    onDeleteSelf(){
+        if (this.props.onDelete){
+            this.props.onDelete(this.props.flowData.key);
+        }
     }
     renderChildrenComponents(){
        return <Paper className="childrenComponents">
@@ -40,9 +52,8 @@ class SimpleFlowContainer extends Component {
            </Paper>;
     }
     render() {
-
         return <div className="flowContainerRoot"><Grid container alignItems="center" justify="center" direction="column" >
-            <FlowComponent flowData={this.props.flowData}></FlowComponent>
+            <FlowComponent onAdd={this.onAppend} onDelete={this.onDeleteSelf} flowData={this.props.flowData}></FlowComponent>
             {this.renderChildrenComponents()}
         </Grid></div>;
 
@@ -53,6 +64,7 @@ class SimpleFlowContainer extends Component {
 
 SimpleFlowContainer.propTypes = {
     flowData: PropTypes.PropTypes.instanceOf(BaseContainerDataType).isRequired,
+    onDelete: PropTypes.func
 };
 
 export default SimpleFlowContainer;

@@ -15,7 +15,7 @@ class FlowDialogActions extends Component {
             <Button onClick={()=>this.props.onClose('cancel')} color="primary">
                 Cancel
             </Button>
-            <Button onClick={()=>this.props.onClose('ok')} color="ok">
+            <Button onClick={()=>this.props.onClose('ok')} color="default">
                 Ok
             </Button>
         </Fragment>
