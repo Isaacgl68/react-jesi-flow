@@ -53,6 +53,9 @@ class FlowComponent extends Component {
                 this.addDialog.open();
                 break;
             case 'delete':
+              if (this.props.onDelete){
+                this.props.onDelete(this.props.flowData.key);
+              }
                 break;
             case 'more':
                 break;
@@ -61,7 +64,9 @@ class FlowComponent extends Component {
         }
     };
     onAddClose(item){
-
+      if (this.props.onAdd){
+        this.props.onAdd(item,this.props.flowData.key);
+      }
     }
 
     render() {
@@ -83,7 +88,7 @@ class FlowComponent extends Component {
                             icon={action.icon}
                             tooltipTitle={action.name}
                             tooltipPlacement="top"
-                            onClick={this.handleActionClick(action.name)}
+                            onClick={() => this.handleActionClick(action.name)}
                         />
                     ))}
                 </SpeedDial>
@@ -92,7 +97,7 @@ class FlowComponent extends Component {
                 </Typography>
             </div>
             <ArrowDownThick size={70} color="#3f51b5" className="arrow"/>
-            <FlowDialog contentComponent={FlowComponentsList} onClose={this.onAddClose} ref={this.addDialog}  />
+            <FlowDialog contentComponent={FlowComponentsList} onClose={this.onAddClose} ref={(addDialog) => this.addDialog = addDialog}  />
         </div>;
 
 

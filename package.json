@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "main": "index.js",
   "license": "MIT",
+  "description": "jesi-flow-react base application",
   "scripts": {
     "webpack": "webpack --mode=production",
     "webpack-dev": "webpack --mode=development",

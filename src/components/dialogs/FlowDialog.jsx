@@ -59,7 +59,7 @@ class FlowDialog extends Component {
 
     render() {
         const { title, ...other } = this.props;
-        <Dialog
+        return <Dialog
             disableBackdropClick
             disableEscapeKeyDown
             maxWidth="xs"

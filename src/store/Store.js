@@ -3,6 +3,7 @@ import AssignDataType from "./dataTypes/AssignDataType";
 import BaseContainerDataType from "./dataTypes/BaseContainerDataType";
 import * as FlowNodeTypes from "../utils/consts/FlowNodeTypes";
 import AppConfiguration from "../controler/AppConfiguration";
+import cloneDeep from 'lodash/cloneDeep'
 
 class Store {
 
@@ -29,7 +30,9 @@ class Store {
 	}
 
 	@action deleteComponent(componentkey, targetArray){
-
+		this.undoFlowTree = cloneDeep(this.flowTree);
+		const index = targetArray.findIndex(component => component.key === componentkey);
+		targetArray.splice(index, 1);
 	}
 
 	flowTreeToJSON() {

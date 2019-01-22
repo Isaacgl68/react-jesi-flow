@@ -2,6 +2,7 @@ import DonutLarge from '@material-ui/icons/DonutLarge';
 import ExitRun from 'mdi-react/ExitRunIcon';
 import ClipboardArrowDown from 'mdi-react/ClipboardArrowDownIcon';
 import Sync from 'mdi-react/SyncIcon';
+import DefaultIcon from 'mdi-react/RadioButtonUncheckedIcon';
 
 
 
@@ -19,7 +20,8 @@ export const Icons = {
     startIcon:DonutLarge,
     exit:ExitRun,
     assign:ClipboardArrowDown,
-    while:Sync
+    while:Sync,
+    defaultIcon:DefaultIcon,
 }
 export function initTypeConfigMap(){
     return new Map([

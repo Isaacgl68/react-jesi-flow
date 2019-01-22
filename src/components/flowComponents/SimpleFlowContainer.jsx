@@ -22,11 +22,11 @@ class SimpleFlowContainer extends Component {
         super(props);
         this.config = AppConfiguration.getTypeByName(this.props.flowData.type)||{};
     }
-    onInsert(newComponentName,childKey ){
+    onInsert(newComponentName, childKey ){
         Store.addComponent(newComponentName,this.props.flowData.children, childKey);
     }
     onDelete(childKey){
-        Store.deleteComponent(childKey,this.props.flowData.children )
+        Store.deleteComponent(childKey,this.props.flowData.children );
     }
     renderChildrenComponents(){
        return <Paper className="childrenComponents">

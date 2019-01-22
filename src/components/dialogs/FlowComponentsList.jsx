@@ -30,10 +30,11 @@ class FlowComponentsList extends Component {
         const itemsList = newTypesSelectionList.map((item) => {
             const config = AppConfiguration.getTypeByName(item);
             return <ListItem button
+                             key={item}
                              selected={this.state.selectedItem === item}
                              onClick={event => this.handleListItemClick(event, item)}>
                 <ListItemIcon>
-                    {React.createElement(config.icon)}
+                    {(config.icon)?React.createElement(config.icon):React.createElement('defaultIcon')}
                 </ListItemIcon>
                 <ListItemText primary={config.label}/>
             </ListItem>
