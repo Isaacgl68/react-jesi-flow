@@ -10,6 +10,7 @@ import AppConfiguration from "../../controler/AppConfiguration";
 import BaseContainerDataType from "../../store/dataTypes/BaseContainerDataType";
 import FlowComponent from "./FlowComponent";
 import Paper from "@material-ui/core/Paper";
+import Store from "../../store/Store";
 
 
 @observer
@@ -21,12 +22,19 @@ class SimpleFlowContainer extends Component {
         super(props);
         this.config = AppConfiguration.getTypeByName(this.props.flowData.type)||{};
     }
+    onInsert(newComponentName,childKey ){
+        Store.addComponent(newComponentName,this.props.flowData.children, childKey);
+    }
+    onDelete(childKey){
+        Store.deleteComponent(childKey,this.props.flowData.children )
+    }
     renderChildrenComponents(){
        return <Paper className="childrenComponents">
            {
                this.props.flowData.children.map(childData => {
                    const childConfig = AppConfiguration.getTypeByName(childData.type);
-                  return React.createElement(childConfig.component,{flowData:childData, key:childData.key});
+                  return React.createElement(childConfig.component,{flowData:childData, key:childData.key,
+                      onAdd:this.onInsert, onDelete:this.onDelete});
                })
            }
            </Paper>;

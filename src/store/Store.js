@@ -18,6 +18,19 @@ class Store {
 	@action setActiveComponent(component){
 		this.activeComponent = component;
 	}
+	@action addComponent(componentTypeName, targetArray, insertAfterKey){
+		const newComp =new AppConfiguration.getTypeByName(componentTypeName).dataClass();
+		if(insertAfter){
+			const index = targetArray.findIndex(component => component.key === insertAfterKey);
+			targetArray.splice(index, 0, newComp);
+		}else{
+			targetArray.push(newComp);
+		}
+	}
+
+	@action deleteComponent(componentkey, targetArray){
+
+	}
 
 	flowTreeToJSON() {
 		return this.flowTree.toJSON();

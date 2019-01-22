@@ -102,6 +102,8 @@ class FlowComponent extends Component {
 
 FlowComponent.propTypes = {
     flowData: PropTypes.instanceOf(BaseFlowDataType).isRequired,
+    onAdd: PropTypes.func,
+    onDelete: PropTypes.func
 };
 
 export default FlowComponent;
