@@ -8,6 +8,8 @@ import ArrowDownThick from 'mdi-react/ArrowDownThickIcon';
 import PropTypes from 'prop-types';
 import AppConfiguration from "../../controler/AppConfiguration";
 import BaseFlowDataType from "../../store/dataTypes/BaseFlowDataType";
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 //////////////////
 import SpeedDial from '@material-ui/lab/SpeedDial';
 import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
@@ -30,7 +32,9 @@ const actions = [
 @observer
 class FlowComponent extends Component {
     addDialog;
-
+    state = {
+      anchorEl: null,
+    };
 
     constructor(props) {
         super(props);
@@ -48,7 +52,7 @@ class FlowComponent extends Component {
             open: !state.open,
         }));*/
     };
-    handleActionClick = (action) => {
+    handleActionClick = (action, e) => {
         switch (action) {
             case 'add':
                 this.addDialog.open();
@@ -59,6 +63,7 @@ class FlowComponent extends Component {
               }
                 break;
             case 'more':
+              this.setState({ anchorEl: event.currentTarget });
                 break;
             default:
                 break
@@ -68,6 +73,24 @@ class FlowComponent extends Component {
       if (this.props.onAdd){
         this.props.onAdd(item,this.props.flowData.key);
       }
+    }
+
+  onMoreClose(item){
+    this.setState({ anchorEl: null });
+  }
+
+    renderMoreMenu(){
+      const { anchorEl } = this.state;
+      return <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={this.onMoreClose}
+      >
+        <MenuItem onClick={this.onMoreClose}>Insert Into</MenuItem>
+        <MenuItem onClick={this.onMoreClose}>Insert After</MenuItem>
+        <MenuItem onClick={this.onMoreClose}>Cut</MenuItem>
+      </Menu>
     }
 
     render() {
@@ -89,7 +112,7 @@ class FlowComponent extends Component {
                             icon={action.icon}
                             tooltipTitle={action.name}
                             tooltipPlacement="top"
-                            onClick={() => this.handleActionClick(action.name)}
+                            onClick={(e) => this.handleActionClick(action.name, e)}
                         />
                     ))}
                 </SpeedDial>
