@@ -11,92 +11,62 @@ import BaseContainerDataType from "../../store/dataTypes/BaseContainerDataType";
 import FlowComponent from "./FlowComponent";
 import Paper from "@material-ui/core/Paper";
 import Store from "../../store/Store";
+import SimpleFlowContainer from "./SimpleFlowContainer";
 
 
 @observer
-class SimpleFlowContainer extends Component {
+class BaseSplitContainer extends Component {
 
 
 
     constructor(props) {
         super(props);
         this.config = AppConfiguration.getTypeByName(this.props.flowData.type)||{};
-        this.onInsert = this.onInsert.bind(this);
         this.onAppend = this.onAppend.bind(this);
-        this.onAppendSelf = this.onAppendSelf.bind(this);
-        this.onDelete = this.onDelete.bind(this);
         this.onDeleteSelf = this.onDeleteSelf.bind(this);
-        this.onCut = this.onCut.bind(this);
         this.onCutSelf = this.onCutSelf.bind(this);
-        this.onPasteInsert = this.onPasteInsert.bind(this);
         this.onPasteAppend = this.onPasteAppend.bind(this);
 
     }
-    onInsert(newComponentName ){
-        Store.addComponent(newComponentName,this.props.flowData.children);
-    }
 
-    onAppend(newComponentName, childKey){
-        Store.addComponent(newComponentName,this.props.flowData.children, childKey);
-    }
-    onAppendSelf(newComponentName){
+    onAppend(newComponentName){
         if (this.props.onAppend){
             this.props.onAppend(newComponentName,this.props.flowData.key);
         }
     }
-    onDelete(childKey){
-        Store.deleteComponent(childKey,this.props.flowData.children );
-    }
+
     onDeleteSelf(){
         if (this.props.onDelete){
             this.props.onDelete(this.props.flowData.key);
         }
     }
-    onCut(item){
-        Store.cutComponent(item, this.props.flowData.children);
-    }
+
     onCutSelf(){
         if (this.props.onCut){
             this.props.onCut(this.props.flowData.key);
         }
     }
-    onPasteInsert(){
-        Store.pasteComponent(this.props.flowData.children)
-    }
+
     onPasteAppend(item){
         Store.pasteComponent(this.props.flowData.children, item);
     }
-    onPasteAppendSelf(item){
-        if (this.props.onPasteAppend){
-            this.props.onPasteAppend(this.props.flowData.key);
-        }
-    }
+
     renderChildrenComponents(){
-       return <Paper className="childrenComponents">
-           {
-               this.props.flowData.children.map(childData => {
-                   const childConfig = AppConfiguration.getTypeByName(childData.type);
-                   const isContainer = childConfig.component instanceof  SimpleFlowContainer;
-                   return React.createElement(childConfig.component,{
-                      flowData:childData, key:childData.key,
-                      onInsert:this.onInsert, onAppend:this.onAppend,
-                      onDelete:this.onDelete,
-                      onPasteInsert:this.onPasteInsert, onPasteAppend:this.onPasteAppend,
-                      onCut:this.onCut
-                  });
-               })
-           }
-           </Paper>;
+
+       return  <Paper className="childrenComponents">
+                <Grid container alignItems="stretch" justify="center" direction="row" wrap="nowrap">
+
+           <SimpleFlowContainer flowData={this.props.flowData.children[0]}/>
+           <SimpleFlowContainer flowData={this.props.flowData.children[1]}/>
+                </Grid>
+       </Paper>;
     }
     render() {
         return <div className="flowContainerRoot"><Grid container alignItems="center" justify="center" direction="column" >
-            <FlowComponent onAppend={this.onAppendSelf}
-                           onInsert={this.onInsert}
+            <FlowComponent onAppend={this.onAppend}
                            onDelete={this.onDeleteSelf}
-                           onPasteInsert={this.onPasteInsert}
                            onPasteAppend={this.onPasteAppendSelf}
                            onCut={this.onCutSelf}
-                           allowInto
                            flowData={this.props.flowData}></FlowComponent>
             {this.renderChildrenComponents()}
         </Grid></div>;
@@ -106,10 +76,10 @@ class SimpleFlowContainer extends Component {
 
 }
 
-SimpleFlowContainer.propTypes = {
+BaseSplitContainer.propTypes = {
     flowData: PropTypes.PropTypes.instanceOf(BaseContainerDataType).isRequired,
     onDelete: PropTypes.func,
     onCut: PropTypes.func,
 };
 
-export default SimpleFlowContainer;
+export default BaseSplitContainer;

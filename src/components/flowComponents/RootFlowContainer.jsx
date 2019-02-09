@@ -24,13 +24,19 @@ class RootFlowContainer extends SimpleFlowContainer {
 
     }
 
-    onAppend(newComponentName){
-        const exitKey = this.props.flowData.children[this.props.flowData.children.length-1] .key
-        Store.addComponent(newComponentName,this.props.flowData.children,exitKey,true);
-    }
+   // onAppend(newComponentName){
+   //     const exitKey = this.props.flowData.children[this.props.flowData.children.length-1] .key
+    //    Store.addComponent(newComponentName,this.props.flowData.children,exitKey,true);
+    //}
 
-    onDeleteSelf(){
-    }
+  //  onPasteAppend(item){
+  //      const exitKey = this.props.flowData.children[this.props.flowData.children.length-1] .key
+  //      Store.pasteComponent(this.props.flowData.children, exitKey,true);
+  //  }
+
+    onDeleteSelf(){}
+
+    onCutSelf(){}
 
 
 }

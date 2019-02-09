@@ -1,21 +1,16 @@
 import * as FlowNodeTypes from '../utils/consts/FlowNodeTypes';
 import {initTypeConfigMap} from './Configuration';
 
-/*import {default as FlowComponent} from "../components/flowComponents/FlowComponent";
-import SimpleFlowContainer from "../components/flowComponents/SimpleFlowContainer";
-//import BaseFlowDataType from "../store/dataTypes/BaseFlowDataType";
-import AssignDataType from "../store/dataTypes/AssignDataType";
-import ExitDataType from "../store/dataTypes/ExitDataType";
-import IfDataType from "../store/dataTypes/IfDataType";
-import WhileDataType from "../store/dataTypes/WhileDataType";
-import DataTypeFactory from "../store/dataTypes/DataTypeFactory";*/
 
 
 const tagsToTypeMapping = new Map([
     ['assign',FlowNodeTypes.ASSIGN],
     ['exit',FlowNodeTypes.EXIT],
+    ['end',FlowNodeTypes.END],
     ['if',FlowNodeTypes.IF],
-    ['while',FlowNodeTypes.WHILE]
+    ['while',FlowNodeTypes.WHILE],
+    ['task',FlowNodeTypes.TASK],
+    ['xpath',FlowNodeTypes.XPATH]
 
 ]);
 
@@ -23,6 +18,8 @@ const newTypesSelectionList = [
     FlowNodeTypes.ASSIGN,
     FlowNodeTypes.IF,
     FlowNodeTypes.WHILE,
+    FlowNodeTypes.TASK,
+    FlowNodeTypes.XPATH,
     FlowNodeTypes.EXIT]
 
 

@@ -11,9 +11,9 @@ class AssignDataType extends BaseFlowDataType{
     constructor({name, from, to, ...config}= {}){
         super(config);
         this.type = FlowNodeTypes.ASSIGN;
-        this.name = name;
-        this.from = from;
-        this.to = to;
+        this.name = name || '';
+        this.from = from || '';
+        this.to = to || '';
     }
     @computed get toolTip() {
         return`${this.name}: ${this.to} = ${this.to}`;

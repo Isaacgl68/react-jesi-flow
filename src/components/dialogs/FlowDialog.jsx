@@ -5,6 +5,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Dialog from '@material-ui/core/Dialog';
+import FlowComponent from "../flowComponents/FlowComponent";
 
 
 
@@ -57,7 +58,7 @@ class FlowDialog extends Component {
     }
 
     render() {
-        const { title, ...other } = this.props;
+        const { title,maxWidth,fullWidth, ...other } = this.props;
         return <Dialog
             disableBackdropClick
             disableEscapeKeyDown
@@ -65,6 +66,8 @@ class FlowDialog extends Component {
             onEntering={this.handleEntering}
             aria-labelledby="confirmation-dialog-title"
             open={this.state.open}
+            maxWidth={maxWidth}
+            fullWidth={fullWidth}
         >
             <DialogTitle id="confirmation-dialog-title"><div>{title}</div></DialogTitle>
             <DialogContent>
@@ -76,12 +79,18 @@ class FlowDialog extends Component {
         </Dialog>
     }
 };
+FlowDialog.defaultProps = {
+    maxWidth:'xs',
+    fullWidth: true
+}
 
 FlowDialog.propTypes = {
     onClose: PropTypes.func,
     title:PropTypes.string,
-    contentComponent:PropTypes.func.isRequired,
-    contentComponentParams:PropTypes.object
+    contentComponent:PropTypes.func,
+    contentComponentParams:PropTypes.object,
+    maxWidth: PropTypes.string,
+    fullWidth:PropTypes.bool
 };
 
 export default FlowDialog;

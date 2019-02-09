@@ -4,6 +4,8 @@ import ExitDataType from './ExitDataType';
 import IfDataType from './IfDataType';
 import WhileDataType from './WhileDataType';
 import BaseFlowDataType from "./BaseFlowDataType";
+import TaskDataType from "./TaskDataType";
+import XpathDataType from "./XpathDataType";
 
 const classes ={
     BaseFlowDataType,
@@ -11,7 +13,9 @@ const classes ={
     AssignDataType,
     ExitDataType,
     IfDataType,
-    WhileDataType
+    WhileDataType,
+    TaskDataType,
+    XpathDataType,
 
 }
 

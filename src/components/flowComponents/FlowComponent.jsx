@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {observable, action} from 'mobx';
 import {observer} from 'mobx-react';
 import Fab from '@material-ui/core/Fab';
@@ -17,33 +17,42 @@ import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 import AddIcon from '@material-ui/icons/Add';
 import MoreVert from '@material-ui/icons/MoreVert';
 import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 import Store from "../../store/Store";
 import FlowComponentsList from "../dialogs/FlowComponentsList";
 import FlowDialog from "../dialogs/FlowDialog";
 
 
-const actions = [
-    {icon: <AddIcon/>, name: 'add'},
-    {icon: <DeleteIcon/>, name: 'delete'},
-    {icon: <MoreVert/>, name: 'more'},
 
-];
 
 @observer
 class FlowComponent extends Component {
     addDialog;
+    editorDialog;
+    addOperationType
+
     state = {
       anchorEl: null,
     };
+    ;
 
     constructor(props) {
         super(props);
         this.config = AppConfiguration.getTypeByName(this.props.flowData.type) || {};
         this.onAddClose = this.onAddClose.bind(this);
+        this.onMoreClose =  this.onMoreClose.bind(this);
     }
 
     isOpen() {
         return (!this.config.hideMenu && Store.activeComponent === this)
+    }
+
+    getActions(){
+        return  [
+            {icon: <EditIcon/>, name: 'edit', disabled:!this.config.editor},
+            {icon: <DeleteIcon/>, name: 'delete', disabled:(this.props.disableDelete || this.config.disableDelete)},
+            {icon: <MoreVert/>, name: 'more', },
+        ];
     }
 
     handleClick = () => {
@@ -52,10 +61,14 @@ class FlowComponent extends Component {
             open: !state.open,
         }));*/
     };
+
+    onEditorClose(){
+
+    }
     handleActionClick = (action, e) => {
         switch (action) {
-            case 'add':
-                this.addDialog.open();
+            case 'edit':
+                this.editorDialog.open();
                 break;
             case 'delete':
               if (this.props.onDelete){
@@ -63,20 +76,73 @@ class FlowComponent extends Component {
               }
                 break;
             case 'more':
-              this.setState({ anchorEl: event.currentTarget });
+              this.setState({ anchorEl: e.currentTarget });
                 break;
             default:
                 break
         }
     };
     onAddClose(item){
-      if (this.props.onAdd){
-        this.props.onAdd(item,this.props.flowData.key);
-      }
+        if (this.addOperationType === 'insertInto'){
+            if (this.props.onInsert){
+                this.props.onInsert(item);
+            }
+        }else {
+                if (this.props.onAppend) {
+                    this.props.onAppend(item, this.props.flowData.key);
+                }
+        }
     }
 
-  onMoreClose(item){
+  onMoreClose =  action => (event) =>{
     this.setState({ anchorEl: null });
+      switch (action) {
+          case 'insertInto':
+              this.addOperationType = 'insertInto';
+              this.addDialog.open();
+              break;
+          case 'insertAfter':
+              this.addOperationType = 'insertAfter';
+              this.addDialog.open();
+              break;
+          case 'cut':
+              if (this.props.onCut){
+                  this.props.onCut(this.props.flowData.key) ;
+              }
+              break;
+          case 'pasteInto':
+              if (this.props.onPasteInsert){
+                  this.props.onPasteInsert(this.props.flowData.key) ;
+              }
+              break;
+          case 'pasteAfter':
+              if (this.props.onPasteAppend){
+                  this.props.onPasteAppend(this.props.flowData.key) ;
+              }
+              break;
+          default:
+              break
+      }
+  }
+
+  getSubMenuItems(){
+        const menuItemArray = [];
+        if (this.props.allowInto){
+            menuItemArray.push( <MenuItem key="insertInto" onClick={this.onMoreClose('insertInto')}>Insert Into...</MenuItem>);
+        }
+      if (!this.props.disableAppend && !this.config.disableAppend){
+          menuItemArray.push( <MenuItem key="insertAfter" onClick={this.onMoreClose('insertAfter')}>Insert After...</MenuItem>);
+      }
+      if (!this.props.disableDelete && !this.config.disableDelete){
+          menuItemArray.push( <MenuItem key="cut" onClick={this.onMoreClose('cut')}>Cut</MenuItem>);
+      }
+      if (this.props.allowInto){
+          menuItemArray.push( <MenuItem key="pasteInto" onClick={this.onMoreClose('pasteInto')}>Paste Into</MenuItem>);
+      }
+      if (!this.props.disableAppend && !this.config.disableAppend){
+          menuItemArray.push( <MenuItem key="pasteAfter" onClick={this.onMoreClose('pasteAfter')}>Paste After</MenuItem>);
+      }
+        return menuItemArray;
   }
 
     renderMoreMenu(){
@@ -85,13 +151,20 @@ class FlowComponent extends Component {
         id="simple-menu"
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
-        onClose={this.onMoreClose}
+        onClose={this.onMoreClose('')}
       >
-        <MenuItem onClick={this.onMoreClose}>Insert Into</MenuItem>
-        <MenuItem onClick={this.onMoreClose}>Insert After</MenuItem>
-        <MenuItem onClick={this.onMoreClose}>Cut</MenuItem>
+          {this.getSubMenuItems()}
       </Menu>
     }
+
+    renderEditorDialog(){
+        if (this.config.editor){
+            return  <FlowDialog contentComponent={this.config.editor} onClose={this.onEditorClose}  title={ `Edit ${this.config.label}`}
+                                contentComponentParams={{dataType:this.props.flowData}} maxWidth="sm"
+                                ref={(editorDialog) => this.editorDialog = editorDialog}  />;
+        }else return '';
+    }
+
 
     render() {
 
@@ -106,11 +179,12 @@ class FlowComponent extends Component {
                     direction="left"
                     hidden={false}
                 >
-                    {actions.map(action => (
+                    {this.getActions().map(action => (
                         <SpeedDialAction
                             key={action.name}
                             icon={action.icon}
                             tooltipTitle={action.name}
+                            disabled={action.disabled}
                             tooltipPlacement="top"
                             onClick={(e) => this.handleActionClick(action.name, e)}
                         />
@@ -121,18 +195,34 @@ class FlowComponent extends Component {
                 </Typography>
             </div>
             <ArrowDownThick size={70} color="#3f51b5" className="arrow"/>
-            <FlowDialog contentComponent={FlowComponentsList} onClose={this.onAddClose} ref={(addDialog) => this.addDialog = addDialog}  />
+            <FlowDialog contentComponent={FlowComponentsList} onClose={this.onAddClose}  title="New Component"
+                        ref={(addDialog) => this.addDialog = addDialog}  />
+            {this.renderEditorDialog()}
+            {this.renderMoreMenu()}
         </div>;
 
 
     }
 
 }
+FlowComponent.defaultProps = {
+    disableAppend: false,
+    disableDelete: false,
+    allowInto: false
+};
+
 
 FlowComponent.propTypes = {
     flowData: PropTypes.instanceOf(BaseFlowDataType).isRequired,
-    onAdd: PropTypes.func,
-    onDelete: PropTypes.func
+    onInsert: PropTypes.func,
+    onAppend: PropTypes.func,
+    onDelete: PropTypes.func,
+    onCut: PropTypes.func,
+    onPasteInsert: PropTypes.func,
+    onPasteAppend: PropTypes.func,
+    allowAppend: PropTypes.bool,
+    disableDelete: PropTypes.bool,
+    allowInto: PropTypes.bool,
 };
 
 export default FlowComponent;

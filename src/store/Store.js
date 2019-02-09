@@ -10,6 +10,7 @@ class Store {
 	@observable flowTree = new BaseContainerDataType({type:FlowNodeTypes.START});
 	undoFlowTree;
 	@observable activeComponent;
+	@observable clipBoard;
 
 	constructor(){
 		this.flowTreeFromJSON = this.flowTreeFromJSON.bind(this);
@@ -27,7 +28,7 @@ class Store {
 			index = (insertBeforeInd) ? index: index +1;
 			targetArray.splice(index, 0, newComp);
 		}else{
-			targetArray.push(newComp);
+			targetArray.unshift(newComp);
 		}
 	}
 
@@ -35,6 +36,24 @@ class Store {
 		this.undoFlowTree = cloneDeep(this.flowTree);
 		const index = targetArray.findIndex(component => component.key === componentkey);
 		targetArray.splice(index, 1);
+	}
+
+	@action cutComponent(componentkey, targetArray){
+		this.undoFlowTree = cloneDeep(this.flowTree);
+		const index = targetArray.findIndex(component => component.key === componentkey);
+		this.clipBoard = targetArray.splice(index, 1)[0];
+	}
+
+	@action pasteComponent(targetArray, encoreKey, insertBeforeInd){
+		if (!this.clipBoard) return;
+		if(encoreKey){
+			let index = targetArray.findIndex(component => component.key === encoreKey);
+			index = (insertBeforeInd) ? index: index +1;
+			targetArray.splice(index, 0, this.clipBoard);
+		}else{
+			targetArray.unshift(this.clipBoard);
+		}
+		this.clipBoard = null;
 	}
 
 	flowTreeToJSON() {

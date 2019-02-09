@@ -1,0 +1,18 @@
+.root {
+  flex-grow: 1;
+
+  .appBar {
+    margin-bottom: 20px;
+    background-color: #2196f3;
+    .grow {
+      flex-grow: 1;
+    }
+
+    .appMenuButton {
+      margin-left: -12px;
+      margin-right: 20px;
+    }
+  }
+}
+
+
