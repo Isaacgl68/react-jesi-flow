@@ -11,12 +11,16 @@ import BaseContainerDataType from "../../store/dataTypes/BaseContainerDataType";
 import FlowComponent from "./FlowComponent";
 import Paper from "@material-ui/core/Paper";
 import Store from "../../store/Store";
+import ChevronRightIcon from "mdi-react/ChevronRightIcon";
+import ChevronDownIcon from "mdi-react/ChevronDownIcon";
 
 
 @observer
 class SimpleFlowContainer extends Component {
 
-
+state = {
+    isCollapse: false
+}
 
     constructor(props) {
         super(props);
@@ -30,6 +34,7 @@ class SimpleFlowContainer extends Component {
         this.onCutSelf = this.onCutSelf.bind(this);
         this.onPasteInsert = this.onPasteInsert.bind(this);
         this.onPasteAppend = this.onPasteAppend.bind(this);
+        this.onCollapse = this.onCollapse.bind(this);
 
     }
     onInsert(newComponentName ){
@@ -88,8 +93,21 @@ class SimpleFlowContainer extends Component {
            }
            </Paper>;
     }
+    onCollapse() {
+    this.setState({isCollapse: !this.state.isCollapse})
+    }
+
+    renderCollapse(){
+        if (this.state.isCollapse) {
+            return <ChevronRightIcon className="collapse" onClick={this.onCollapse}/>;
+        } else{
+            return <ChevronDownIcon className="collapse" onClick={this.onCollapse}/>;
+        }
+    }
     render() {
-        return <div className="flowContainerRoot"><Grid container alignItems="center" justify="center" direction="column" >
+        return <div className="flowContainerRoot">
+            {this.renderCollapse()}
+            <Grid container alignItems="center" justify="center" direction="column" >
             <FlowComponent onAppend={this.onAppendSelf}
                            onInsert={this.onInsert}
                            onDelete={this.onDeleteSelf}

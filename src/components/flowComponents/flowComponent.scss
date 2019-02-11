@@ -27,9 +27,13 @@
 }
 .flowContainerRoot{
   border: 1px solid black;
+
   .childrenComponents{
     margin: 15px;
 
   }
+}
+.collapse{
+  position: absolute;
 }
 
