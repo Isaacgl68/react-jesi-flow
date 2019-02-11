@@ -12,15 +12,13 @@ import {pick} from "lodash";
 @observer
 class ExitEditor extends Component {
 
-    state = {
-    };
     @observable workingData = {
         text:'',
     };
 
     constructor(props) {
         super(props);
-        this.workingData = pick(props.dataType,['text'] );
+        this.workingData = Object.assign(this.workingData,props.dataType.properties);
 
     }
 
@@ -30,7 +28,7 @@ class ExitEditor extends Component {
 
     getValue() {
         const {dataType} = this.props;
-        dataType.text = this.workingData.text;
+        dataType.properties = Object.assign(dataType.properties, this.workingData);
         return dataType;
 
     }

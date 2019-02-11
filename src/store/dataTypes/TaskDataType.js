@@ -5,37 +5,39 @@ import * as FlowNodeTypes from "../../utils/consts/FlowNodeTypes";
 class TaskDataType extends BaseFlowDataType{
 
 
+    properties ={
+        name: '',
+        id: '',
+        input: '',
+        operation: ''
+    }
 
 
-    @observable name = '';
-    @observable id = '';
-    @observable input = '';
-    @observable operation = '';
 
-    constructor({name, id, input,operation,...config}= {}){
+    constructor({name = '', id = '', input = '' ,operation = 'CREATE' ,...config}= {}){
         super(config);
         this.type = FlowNodeTypes.TASK;
-        this.name = name || '';
-        this.id = id || '';
-        this.input = input || '';
-        this.operation = operation || '';
+        this.properties.name = name;
+        this.properties.id = id;
+        this.properties.input = input;
+        this.properties.operation = operation;
     }
     @computed get toolTip() {
-        return`${this.name}: ${this.id} = ${this.operation}`;
+        return`${this.properties.name}: ${this.properties.id} = ${this.properties.operation}`;
     }
 
 
     @computed get outputXML() {
-        const xml = `<assign name=${this.name} id=${this.id} input=${this.input} operation=${this.operation}/>`;
+        const xml = `<assign name=${this.properties.name} id=${this.properties.id} input=${this.properties.input} operation=${this.properties.operation}/>`;
         return xml;
     }
 
     toJSON(){
         let obj = super.toJSON();
-        obj.name = this.name;
-        obj.id = this.id;
-        obj.input = this.input;
-        obj.operation = this.operation;
+        obj.name = this.properties.name;
+        obj.id = this.properties.id;
+        obj.input = this.properties.input;
+        obj.operation = this.properties.operation;
         return obj;
     }
 

@@ -7,7 +7,7 @@ import cloneDeep from 'lodash/cloneDeep'
 
 class Store {
 
-	@observable flowTree = new BaseContainerDataType({type:FlowNodeTypes.START});
+	@observable flowTree;// = new BaseContainerDataType({type:FlowNodeTypes.START});
 	undoFlowTree;
 	@observable activeComponent;
 	@observable clipBoard;

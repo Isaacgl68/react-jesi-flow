@@ -12,8 +12,6 @@ import {pick} from "lodash";
 @observer
 class ConditionEditor extends Component {
 
-    state = {
-    };
     @observable workingData = {
         name:'',
         condition: ''
@@ -21,7 +19,7 @@ class ConditionEditor extends Component {
 
     constructor(props) {
         super(props);
-        this.workingData = pick(props.dataType,['name', 'condition'] );
+        this.workingData = Object.assign(this.workingData,props.dataType.properties);
 
     }
 
@@ -31,11 +29,11 @@ class ConditionEditor extends Component {
 
     getValue() {
         const {dataType} = this.props;
-        dataType.name = this.workingData.name;
-        dataType.condition = this.workingData.condition;
+        dataType.properties = Object.assign(dataType.properties, this.workingData);
         return dataType;
 
     }
+
 
 
     render() {

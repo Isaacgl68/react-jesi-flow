@@ -4,21 +4,23 @@ import * as FlowNodeTypes from "../../utils/consts/FlowNodeTypes";
 
 class ExitDataType extends BaseFlowDataType{
 
-    @observable text = '';
 
+    properties ={
+        text: ''
+    }
 
-    constructor({text, ...config}= {}){
+    constructor({text = '', ...config}= {}){
         super(config);
         this.type = FlowNodeTypes.EXIT;
-        this.text = text;
+        this.properties.text = text;
     }
 
     @computed get toolTip() {
-        return this.text;
+        return this.properties.text;
     }
 
     @computed get outputXML() {
-        const xml = `<exit text=${this.text}/>`;
+        const xml = `<exit text=${this.properties.text}/>`;
         return xml;
     }
 
@@ -28,7 +30,7 @@ class ExitDataType extends BaseFlowDataType{
 
     toJSON(){
         let obj = super.toJSON();
-        obj.text = this.text;
+        obj.text = this.properties.text;
         return obj;
     }
 

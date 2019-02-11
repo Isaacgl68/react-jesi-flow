@@ -8,6 +8,8 @@
     "webpack": "webpack --mode=production",
     "webpack-dev": "webpack --mode=development",
     "start": "webpack-dev-server --mode=development --hot --inline",
+    "start:rest": "json-server --watch src/dev/db.json --port 3000",
+    "dev": "npm-run-all --parallel start start:rest",
     "test": "jest"
   },
   "devDependencies": {
@@ -23,8 +25,10 @@
     "html-webpack-plugin": "^3.2.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^23.3.0",
+    "json-server": "^0.14.2",
     "mini-css-extract-plugin": "^0.5.0",
     "node-sass": "^4.11.0",
+    "npm-run-all": "^4.1.5",
     "react-test-renderer": "^16.4.1",
     "react-transform-hmr": "^1.0.4",
     "sass-loader": "^7.1.0",
@@ -43,7 +47,7 @@
     "@mdi/js": "^3.3.92",
     "@mdi/react": "^1.1.0",
     "babel-polyfill": "^6.26.0",
-    "final-form": "^4.11.1",
+    "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.11",
     "mdi-react": "^5.1.0",
     "mobx": "^5.0.3",
@@ -53,6 +57,7 @@
     "react-dnd": "^7.0.2",
     "react-dom": "^16.4.1",
     "typeface-roboto": "0.0.54",
+    "url-parse": "^1.4.4",
     "uuid": "^3.3.2"
   },
   "jest": {

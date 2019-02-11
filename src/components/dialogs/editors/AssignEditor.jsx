@@ -1,19 +1,15 @@
 import React, {Component, Fragment} from 'react';
 import * as PropTypes from "prop-types";
 import Grid from "@material-ui/core/Grid";
-import cloneDeep from 'lodash/cloneDeep';
 import '../dialogs.scss';
 import TextField from "@material-ui/core/TextField";
 import { observer } from "mobx-react";
 import { observable } from "mobx";
-import {pick} from "lodash";
 
 
 @observer
 class AssignEditor extends Component {
 
-    state = {
-    };
     @observable workingData = {
         name:'',
         from: '',
@@ -22,7 +18,7 @@ class AssignEditor extends Component {
 
     constructor(props) {
         super(props);
-        this.workingData = pick(props.dataType,['name', 'from', 'to'] );
+        this.workingData = Object.assign(this.workingData,props.dataType.properties);
 
     }
 
@@ -32,9 +28,7 @@ class AssignEditor extends Component {
 
     getValue() {
         const {dataType} = this.props;
-        dataType.name = this.workingData.name;
-        dataType.from = this.workingData.from;
-        dataType.to = this.workingData.to;
+        dataType.properties = Object.assign(dataType.properties, this.workingData);
         return dataType;
 
     }

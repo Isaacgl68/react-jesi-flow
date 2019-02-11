@@ -4,18 +4,19 @@ import * as FlowNodeTypes from "../../utils/consts/FlowNodeTypes";
 
 class XpathDataType extends BaseFlowDataType{
 
-    @observable query = '';
-    @observable input = '';
-    @observable isArray = false;
 
+    properties ={
+        query: '',
+        input: '',
+        isArray: false,
+    }
 
-
-    constructor({query, input, isArray, ...config}= {}){
+    constructor({query ='', input = '', isArray = false, ...config}= {}){
         super(config);
         this.type = FlowNodeTypes.XPATH;
-        this.query = query || '';
-        this.input = input || '';
-        this.isArray = isArray || false;
+        this.properties.query = query;
+        this.properties.input = input;
+        this.properties.isArray = isArray;
     }
     @computed get toolTip() {
         return`${this.query}`;
@@ -23,15 +24,16 @@ class XpathDataType extends BaseFlowDataType{
 
 
     @computed get outputXML() {
-        const xml = `<invoke type="Xpath" input=${this.input} query=${this.query} isArray=${this.isArray}/>`;
+        const xml = `<invoke type="Xpath" input=${this.properties.input} query=${this.properties.query} 
+                isArray=${this.properties.isArray}/>`;
         return xml;
     }
 
     toJSON(){
         let obj = super.toJSON();
-        obj.query = this.query;
-        obj.input = this.input;
-        obj.isArray = this.isArray;
+        obj.query = this.properties.query;
+        obj.input = this.properties.input;
+        obj.isArray = this.properties.isArray;
         return obj;
     }
 

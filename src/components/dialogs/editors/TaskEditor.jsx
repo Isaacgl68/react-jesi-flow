@@ -20,8 +20,6 @@ import Input from "@material-ui/core/Input";
 @observer
 class TaskEditor extends Component {
 
-    state = {
-    };
     @observable workingData = {
         name:'',
         id: '',
@@ -29,10 +27,10 @@ class TaskEditor extends Component {
         operation:'CREATE'
     };
 
+
     constructor(props) {
         super(props);
-        this.workingData = pick(props.dataType,['name', 'id', 'input', 'operation'] );
-        this.workingData.operation = this.workingData.operation || 'CREATE';
+        this.workingData = Object.assign(this.workingData,props.dataType.properties);
 
     }
 
@@ -42,10 +40,7 @@ class TaskEditor extends Component {
 
     getValue() {
         const {dataType} = this.props;
-        dataType.name = this.workingData.name;
-        dataType.id = this.workingData.id;
-        dataType.input = this.workingData.input;
-        dataType.operation = this.workingData.operation;
+        dataType.properties = Object.assign(dataType.properties, this.workingData);
         return dataType;
 
     }

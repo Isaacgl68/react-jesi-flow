@@ -1,17 +1,30 @@
+body {
+  margin: 0px 0px 0px 0px;
+}
 .root {
   flex-grow: 1;
 
   .appBar {
     margin-bottom: 20px;
     background-color: #2196f3;
+    z-index: 1300;
     .grow {
       flex-grow: 1;
     }
-
     .appMenuButton {
       margin-left: -12px;
       margin-right: 20px;
     }
+  }
+  .drawer {
+    flex-shrink: 0;
+  }
+  .drawerOpen {
+    width: 240px;
+  }
+
+  .drawerPaper {
+    background-color: lightgray;
   }
 }
 

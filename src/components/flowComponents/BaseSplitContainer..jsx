@@ -12,12 +12,15 @@ import FlowComponent from "./FlowComponent";
 import Paper from "@material-ui/core/Paper";
 import Store from "../../store/Store";
 import SimpleFlowContainer from "./SimpleFlowContainer";
+import CollapseIcon from "../ui/CollapseIcon";
 
 
 @observer
 class BaseSplitContainer extends Component {
 
-
+    state = {
+        isCollapse: false
+    }
 
     constructor(props) {
         super(props);
@@ -26,6 +29,7 @@ class BaseSplitContainer extends Component {
         this.onDeleteSelf = this.onDeleteSelf.bind(this);
         this.onCutSelf = this.onCutSelf.bind(this);
         this.onPasteAppend = this.onPasteAppend.bind(this);
+        this.onCollapse = this.onCollapse.bind(this);
 
     }
 
@@ -51,8 +55,14 @@ class BaseSplitContainer extends Component {
         Store.pasteComponent(this.props.flowData.children, item);
     }
 
-    renderChildrenComponents(){
+    onCollapse(collapse) {
+        this.setState({isCollapse: collapse})
+    }
 
+    renderChildrenComponents(){
+        if (this.state.isCollapse) {
+            return <Paper className="childrenComponentsClose"/>
+        }
        return  <Paper className="childrenComponents">
                 <Grid container alignItems="stretch" justify="center" direction="row" wrap="nowrap">
 
@@ -62,7 +72,9 @@ class BaseSplitContainer extends Component {
        </Paper>;
     }
     render() {
-        return <div className="flowContainerRoot"><Grid container alignItems="center" justify="center" direction="column" >
+        return <div className="flowContainerRoot">
+            <CollapseIcon onChange={this.onCollapse}/>
+            <Grid container alignItems="center" justify="center" direction="column" >
             <FlowComponent onAppend={this.onAppend}
                            onDelete={this.onDeleteSelf}
                            onPasteAppend={this.onPasteAppendSelf}

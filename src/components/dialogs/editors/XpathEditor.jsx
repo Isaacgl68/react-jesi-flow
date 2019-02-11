@@ -14,8 +14,6 @@ import Checkbox from "@material-ui/core/Checkbox";
 @observer
 class XpathEditor extends Component {
 
-    state = {
-    };
     @observable workingData = {
         query: '',
         input: '',
@@ -24,7 +22,7 @@ class XpathEditor extends Component {
 
     constructor(props) {
         super(props);
-        this.workingData = pick(props.dataType,['query', 'input', 'isArray'] );
+        this.workingData = Object.assign(this.workingData,props.dataType.properties);
 
     }
 
@@ -34,13 +32,10 @@ class XpathEditor extends Component {
 
     getValue() {
         const {dataType} = this.props;
-        dataType.query = this.workingData.query;
-        dataType.input = this.workingData.input;
-        dataType.isArray = this.workingData.isArray;
+        dataType.properties = Object.assign(dataType.properties, this.workingData);
         return dataType;
 
     }
-
 
     render() {
 

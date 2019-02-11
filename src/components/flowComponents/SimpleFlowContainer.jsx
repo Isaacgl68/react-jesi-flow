@@ -11,8 +11,7 @@ import BaseContainerDataType from "../../store/dataTypes/BaseContainerDataType";
 import FlowComponent from "./FlowComponent";
 import Paper from "@material-ui/core/Paper";
 import Store from "../../store/Store";
-import ChevronRightIcon from "mdi-react/ChevronRightIcon";
-import ChevronDownIcon from "mdi-react/ChevronDownIcon";
+import CollapseIcon from "../ui/CollapseIcon";
 
 
 @observer
@@ -77,7 +76,10 @@ state = {
         }
     }
     renderChildrenComponents(){
-       return <Paper className="childrenComponents">
+        if (this.state.isCollapse) {
+            return <Paper className="childrenComponentsClose"/>
+        }
+        return <Paper className="childrenComponents">
            {
                this.props.flowData.children.map(childData => {
                    const childConfig = AppConfiguration.getTypeByName(childData.type);
@@ -93,8 +95,8 @@ state = {
            }
            </Paper>;
     }
-    onCollapse() {
-    this.setState({isCollapse: !this.state.isCollapse})
+    onCollapse(collapse) {
+        this.setState({isCollapse: collapse})
     }
 
     renderCollapse(){
@@ -106,7 +108,7 @@ state = {
     }
     render() {
         return <div className="flowContainerRoot">
-            {this.renderCollapse()}
+            <CollapseIcon onChange={this.onCollapse}/>
             <Grid container alignItems="center" justify="center" direction="column" >
             <FlowComponent onAppend={this.onAppendSelf}
                            onInsert={this.onInsert}
