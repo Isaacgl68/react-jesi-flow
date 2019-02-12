@@ -14,7 +14,7 @@ import "./app.scss"
 import AppConfiguration from "./controler/AppConfiguration";
 import Drawer from "@material-ui/core/Drawer";
 import UrlParse from 'url-parse';
-import {get} from './utils/rest-utilities';
+import {get, put, post} from './utils/rest-utilities';
 
 
 const getFlowUrl = '/api/flows/';
@@ -32,12 +32,21 @@ export default class App extends Component {
 	componentDidMount(){
 		const pUrl = UrlParse(window.location, true);
 		let flowId = pUrl.query['flow'] || "1";
+		Store.setState({flowId});
 		//Promise.resolve(data).then(Store.flowTreeFromJSON);
 		get(`${getFlowUrl}${flowId}`).then(Store.flowTreeFromJSON);
 	}
 	setToggleSideMenu()
 	{
 		this.setState({toggleSideMenu: !this.state.toggleSideMenu, drawerNotOpenedYet:false});
+	}
+	upload(){
+		put(`${getFlowUrl}${Store.flowId}`,Store.flowTree).then(resp => {
+		}).catch(error => {
+			if (error.status === 404){
+				post(`${getFlowUrl}`,Store.flowTree);
+			}
+		});
 	}
 	render() {
 		const toggleSideMenuColor = (this.state.toggleSideMenu)?'darkslategray':'inherit';
@@ -53,10 +62,10 @@ export default class App extends Component {
 					<Typography variant="h6" color="inherit" className="grow">
 						Flow Designer
 					</Typography>
-					<IconButton className="appMenuButton" color="inherit" aria-label="Upload">
+					<IconButton className="appMenuButton" color="inherit" onClick={this.upload} aria-label="Upload">
 						<UploadIcon />
 					</IconButton>
-					<IconButton className="appMenuButton" color={toggleSideMenuColor} onClick={this.setToggleSideMenu} aria-label="Upload">
+					<IconButton className="appMenuButton" color={toggleSideMenuColor} onClick={this.setToggleSideMenu} aria-label="sideManu">
 						<PageLayoutSidebarIcon />
 					</IconButton>
 				</Toolbar>

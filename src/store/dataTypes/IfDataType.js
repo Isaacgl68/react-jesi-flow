@@ -10,8 +10,8 @@ class IfDataType extends BaseContainerDataType{
         name: '',
         condition: '',
     }
-    ifChild = new BaseContainerDataType({type:FlowNodeTypes.IF_IF_CHILD});
-    elseChild = new BaseContainerDataType({type:FlowNodeTypes.IF_ELSE_CHILD});
+    //ifChild = new BaseContainerDataType({type:FlowNodeTypes.IF_IF_CHILD});
+    //elseChild = new BaseContainerDataType({type:FlowNodeTypes.IF_ELSE_CHILD});
 
     constructor({name = '', condition = '', ...config}= {}){
         super(config);
@@ -37,12 +37,10 @@ class IfDataType extends BaseContainerDataType{
 
     toJSON(){
         let obj = super.toJSON();
-        const ifChild = this.ifChild.map( child => child.toJSON());
-        const elseChild = this.elseChild.map( child => child.toJSON());
+        //const ifChild = this.ifChild.map( child => child.toJSON());
+        //const elseChild = this.elseChild.map( child => child.toJSON());
         obj.name = this.properties.name;
         obj.condition = this.properties.condition;
-        obj.ifChild = ifChild;
-        obj.elseChild = elseChild;
         return obj;
     }
 

@@ -4,6 +4,7 @@ import BaseContainerDataType from "./dataTypes/BaseContainerDataType";
 import * as FlowNodeTypes from "../utils/consts/FlowNodeTypes";
 import AppConfiguration from "../controler/AppConfiguration";
 import cloneDeep from 'lodash/cloneDeep'
+import StartDataType from "./dataTypes/StartDataType";
 
 class Store {
 
@@ -11,6 +12,7 @@ class Store {
 	undoFlowTree;
 	@observable activeComponent;
 	@observable clipBoard;
+	@observable flowId;
 
 	constructor(){
 		this.flowTreeFromJSON = this.flowTreeFromJSON.bind(this);
@@ -61,7 +63,7 @@ class Store {
 	}
 
 	@action flowTreeFromJSON(jsonObj){
-		const root = BaseContainerDataType.fromJSON(jsonObj);
+		const root = StartDataType.fromJSON(jsonObj);
 		this.flowTree = root;
 	}
 }

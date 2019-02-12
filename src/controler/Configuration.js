@@ -30,6 +30,8 @@ import TaskDataType from "../store/dataTypes/TaskDataType";
 import TaskEditor from "../components/dialogs/editors/TaskEditor";
 import XpathDataType from "../store/dataTypes/XpathDataType";
 import XpathEditor from "../components/dialogs/editors/XpathEditor";
+import StartDataType from "../store/dataTypes/StartDataType";
+import StartEditor from "../components/dialogs/editors/StartEditor";
 
 export const Icons = {
     startIcon:DonutLarge,
@@ -45,8 +47,8 @@ export const Icons = {
 }
 export function initTypeConfigMap(){
     return new Map([
-        [FlowNodeTypes.START,{type:FlowNodeTypes.START, dataClass: BaseContainerDataType,
-            icon:Icons['startIcon'],label: 'Start', editor:null, component:SimpleFlowContainer ,disableDelete:true, disableAppend:true}],
+        [FlowNodeTypes.START,{type:FlowNodeTypes.START, dataClass: StartDataType,
+            icon:Icons['startIcon'],label: 'Start', editor:StartEditor, component:SimpleFlowContainer ,disableDelete:true, disableAppend:true}],
         [FlowNodeTypes.END,{type:FlowNodeTypes.END, dataClass: EndDataType, icon:Icons['exit'],label: 'Exit', editor:null, component: FlowComponent, hideMenu:true }],
         [FlowNodeTypes.ASSIGN,{type:FlowNodeTypes.ASSIGN, dataClass: AssignDataType, icon:Icons['assign'],label: 'Assign', editor:AssignEditor,
             component: FlowComponent }],

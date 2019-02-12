@@ -127,7 +127,7 @@ state = {
 }
 
 SimpleFlowContainer.propTypes = {
-    flowData: PropTypes.PropTypes.instanceOf(BaseContainerDataType).isRequired,
+    flowData: PropTypes.PropTypes.object.isRequired,
     onDelete: PropTypes.func,
     onCut: PropTypes.func,
 };

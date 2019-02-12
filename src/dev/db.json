@@ -4,39 +4,133 @@
       "id": "1",
       "type": "start",
       "children": [
-
         {
           "type": "end"
         }
       ]
     },
-{
-      "id": "2",
+    {
+      "key": "b98210b0-2e49-11e9-91e0-8519cd02a46a",
       "type": "start",
       "children": [
         {
-          "type": "assign"
+          "key": "e4e2e250-2e4b-11e9-9aa8-858d09725218",
+          "type": "xpath",
+          "query": "",
+          "input": "",
+          "isArray": false
         },
         {
+          "key": "b9825ed1-2e49-11e9-91e0-8519cd02a46a",
           "type": "while",
           "children": [
             {
-              "type": "task"
+              "key": "b98285e0-2e49-11e9-91e0-8519cd02a46a",
+              "type": "task",
+              "name": "",
+              "id": "",
+              "input": "",
+              "operation": "CREATE"
             },
             {
+              "key": "b98285e1-2e49-11e9-91e0-8519cd02a46a",
               "type": "while",
               "children": [
                 {
-                  "type": "assign"
+                  "key": "b98285e2-2e49-11e9-91e0-8519cd02a46a",
+                  "type": "assign",
+                  "name": "",
+                  "from": "",
+                  "to": ""
                 }
-              ]
+              ],
+              "condition": ""
             }
-          ]
+          ],
+          "condition": ""
         },
         {
-          "type": "end"
+          "key": "b98285e3-2e49-11e9-91e0-8519cd02a46a",
+          "type": "end",
+          "text": ""
         }
-      ]
+      ],
+      "id": "2"
+    },
+    {
+      "key": "b98210b0-2e49-11e9-91e0-8519cd02a46a",
+      "type": "start",
+      "children": [
+        {
+          "key": "e4e2e250-2e4b-11e9-9aa8-858d09725218",
+          "type": "xpath",
+          "query": "",
+          "input": "x123",
+          "isArray": false
+        },
+        {
+          "key": "fac56cc0-2e4e-11e9-9ba2-2b9e6f49301f",
+          "type": "if",
+          "children": [
+            {
+              "key": "fac56cc1-2e4e-11e9-9ba2-2b9e6f49301f",
+              "type": "if-if-child",
+              "children": [
+                {
+                  "key": "202572d0-2e4f-11e9-a191-cbed0983bc2e",
+                  "type": "task",
+                  "name": "",
+                  "id": "",
+                  "input": "",
+                  "operation": "CREATE"
+                }
+              ]
+            },
+            {
+              "key": "fac593d0-2e4e-11e9-9ba2-2b9e6f49301f",
+              "type": "if-else-child",
+              "children": []
+            }
+          ],
+          "name": "c1",
+          "condition": "x=\"='1'"
+        },
+        {
+          "key": "b9825ed1-2e49-11e9-91e0-8519cd02a46a",
+          "type": "while",
+          "children": [
+            {
+              "key": "b98285e0-2e49-11e9-91e0-8519cd02a46a",
+              "type": "task",
+              "name": "",
+              "id": "",
+              "input": "",
+              "operation": "CREATE"
+            },
+            {
+              "key": "b98285e1-2e49-11e9-91e0-8519cd02a46a",
+              "type": "while",
+              "children": [
+                {
+                  "key": "b98285e2-2e49-11e9-91e0-8519cd02a46a",
+                  "type": "assign",
+                  "name": "",
+                  "from": "",
+                  "to": ""
+                }
+              ],
+              "condition": ""
+            }
+          ],
+          "condition": ""
+        },
+        {
+          "key": "b98285e3-2e49-11e9-91e0-8519cd02a46a",
+          "type": "end",
+          "text": ""
+        }
+      ],
+      "id": "3"
     }
   ]
 }
