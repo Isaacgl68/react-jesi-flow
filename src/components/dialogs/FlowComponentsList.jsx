@@ -6,20 +6,26 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import AppConfiguration from "../../controler/AppConfiguration";
 import DefaultIcon from 'mdi-react/RadioButtonUncheckedIcon';
+import Collapse from "@material-ui/core/Collapse";
+import ChevronRightIcon from "mdi-react/ChevronRightIcon";
+import ChevronDownIcon from "mdi-react/ChevronDownIcon";
+import './../flowComponents/flowComponent.scss';
 
 
 class FlowComponentsList extends Component {
 
     state = {
         selectedItem: null,
+        isCollapse:{},
     };
 
     constructor(props) {
         super(props);
+        this.handleListItemClick = this.handleListItemClick.bind(this);
 
     }
 
-    handleListItemClick(event, item) {
+    handleListItemClick = item => (event) => {
         this.setState({selectedItem: item});
     }
 
@@ -27,14 +33,15 @@ class FlowComponentsList extends Component {
         return this.state.selectedItem;
     }
 
-    renderListItems() {
-        const newTypesSelectionList = AppConfiguration.newTypesSelectionList;
-        const itemsList = newTypesSelectionList.map((item) => {
+    renderGroupItems(groupItems) {
+        const itemsList = groupItems.map((item) => {
             const config = AppConfiguration.getTypeByName(item);
             return <ListItem button
+                             style={{paddingLeft:20}}
                              key={item}
                              selected={this.state.selectedItem === item}
-                             onClick={event => this.handleListItemClick(event, item)}>
+                             onClick={this.handleListItemClick(item)}>
+
                 <ListItemIcon>
                     {(config.icon)?React.createElement(config.icon):React.createElement(DefaultIcon)}
                 </ListItemIcon>
@@ -45,9 +52,34 @@ class FlowComponentsList extends Component {
 
     }
 
-    render() {
+    handleCollapseClick = (group) =>() => {
+        this.setState({ isCollapse:{[group]: !this.state.isCollapse[group] }});
+    }
 
-        return <List component="nav">
+
+
+    renderListItems() {
+        const newTypesSelectionList = AppConfiguration.newTypesSelectionList;
+        const itemsList = newTypesSelectionList.map((groupData) => {
+            return <Fragment><ListItem button
+                                       onClick={this.handleCollapseClick(groupData.group)}
+                                       key={groupData.group}
+                                     >
+                <ListItemText primary={groupData.label}/>
+                {this.state.isCollapse[groupData.group] ? <ChevronRightIcon/> : <ChevronDownIcon/>}
+            </ListItem>
+              <Collapse in={this.state.isCollapse[groupData.group]} timeout="auto" unmountOnExit>
+                  <List component="nav" disablePadding key={'subList-'+groupData.group}>
+                      { this.renderGroupItems(groupData.items) }
+                  </List>
+              </Collapse></Fragment>
+        });
+        return itemsList;
+
+    }
+
+    render() {
+        return <List component="div" key={'main'}>
             {this.renderListItems()}
         </List>
     }

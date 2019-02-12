@@ -3,7 +3,8 @@
   margin: auto;
   .flowHeader {
     width: 200px;
-    padding: 12px 8px 8px 8px;
+    height: 57px;
+    padding: 12px 8px 0px 8px;
     .selectionButton{
       position: absolute;
       transform: translateX(-50%);
@@ -19,9 +20,13 @@
   }
   .arrow{
     position: relative;
-    top: 5px;
+    top: -2px;
     z-index: 10;
     width: 200px;
+  }
+  .arrowCollapse{
+    top: 0px;
+
   }
 
 }
@@ -43,5 +48,8 @@
 }
 .collapse{
   position: absolute;
+}
+.nested{
+  padding-left: 50px;
 }
 

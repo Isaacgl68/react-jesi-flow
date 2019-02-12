@@ -15,6 +15,7 @@ import AppConfiguration from "./controler/AppConfiguration";
 import Drawer from "@material-ui/core/Drawer";
 import UrlParse from 'url-parse';
 import {get, put, post} from './utils/rest-utilities';
+import AppModel from "./store/AppModel";
 
 
 const getFlowUrl = '/api/flows/';
@@ -30,23 +31,16 @@ export default class App extends Component {
 		this.setToggleSideMenu = this.setToggleSideMenu.bind(this);
 	}
 	componentDidMount(){
-		const pUrl = UrlParse(window.location, true);
-		let flowId = pUrl.query['flow'] || "1";
-		Store.setState({flowId});
+		AppModel.getFlow();
 		//Promise.resolve(data).then(Store.flowTreeFromJSON);
-		get(`${getFlowUrl}${flowId}`).then(Store.flowTreeFromJSON);
+
 	}
 	setToggleSideMenu()
 	{
 		this.setState({toggleSideMenu: !this.state.toggleSideMenu, drawerNotOpenedYet:false});
 	}
 	upload(){
-		put(`${getFlowUrl}${Store.flowId}`,Store.flowTree).then(resp => {
-		}).catch(error => {
-			if (error.status === 404){
-				post(`${getFlowUrl}`,Store.flowTree);
-			}
-		});
+		AppModel.upsertFlow();
 	}
 	render() {
 		const toggleSideMenuColor = (this.state.toggleSideMenu)?'darkslategray':'inherit';
@@ -54,7 +48,7 @@ export default class App extends Component {
 		const drawerPaper = (this.state.drawerNotOpenedYet)? 'drawerPaper' : 'drawerPaper drawerOpen';
 		const drawer = (this.state.drawerNotOpenedYet) ? 'drawer ' : 'drawer drawerOpen';
 		return <div className="root">
-			<AppBar position="sticky" className="appBar">
+			<AppBar position="sticky"  className="appBar">
 				<Toolbar>
 					<IconButton className="appMenuButton" color="inherit" aria-label="Menu">
 						<MenuIcon />

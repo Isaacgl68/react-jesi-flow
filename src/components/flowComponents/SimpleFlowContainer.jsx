@@ -14,6 +14,8 @@ import Store from "../../store/Store";
 import CollapseIcon from "../ui/CollapseIcon";
 
 
+
+
 @observer
 class SimpleFlowContainer extends Component {
 
@@ -117,6 +119,7 @@ state = {
                            onPasteAppend={this.onPasteAppendSelf}
                            onCut={this.onCutSelf}
                            allowInto
+                           arrowIconType="container"
                            flowData={this.props.flowData}></FlowComponent>
             {this.renderChildrenComponents()}
         </Grid></div>;

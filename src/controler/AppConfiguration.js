@@ -14,13 +14,27 @@ const tagsToTypeMapping = new Map([
 
 ]);
 
+const newTypesSelectionList1 = [
+  FlowNodeTypes.ASSIGN,
+  FlowNodeTypes.IF,
+  FlowNodeTypes.WHILE,
+  FlowNodeTypes.TASK,
+  FlowNodeTypes.XPATH,
+  FlowNodeTypes.EXIT]
+
 const newTypesSelectionList = [
-    FlowNodeTypes.ASSIGN,
-    FlowNodeTypes.IF,
-    FlowNodeTypes.WHILE,
-    FlowNodeTypes.TASK,
-    FlowNodeTypes.XPATH,
-    FlowNodeTypes.EXIT]
+  {group:'components', label:'Components', isOpen:true, items:[
+      FlowNodeTypes.ASSIGN,
+      FlowNodeTypes.TASK,
+      FlowNodeTypes.XPATH,
+      FlowNodeTypes.EXIT,
+      
+    ]},
+  {group:'containers',label:'Containers', isOpen:true, items:[
+      FlowNodeTypes.IF,
+      FlowNodeTypes.WHILE,
+    ]},
+  ]
 
 
 class AppConfiguration{

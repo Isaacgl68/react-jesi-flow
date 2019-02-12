@@ -79,7 +79,11 @@ class BaseSplitContainer extends Component {
                            onDelete={this.onDeleteSelf}
                            onPasteAppend={this.onPasteAppendSelf}
                            onCut={this.onCutSelf}
-                           flowData={this.props.flowData}></FlowComponent>
+                           flowData={this.props.flowData}
+                           showArrow={false}
+            >
+
+            </FlowComponent>
             {this.renderChildrenComponents()}
         </Grid></div>;
 

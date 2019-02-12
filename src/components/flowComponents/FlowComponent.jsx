@@ -5,6 +5,8 @@ import Fab from '@material-ui/core/Fab';
 import Typography from '@material-ui/core/Typography';
 import './flowComponent.scss';
 import ArrowDownThick from 'mdi-react/ArrowDownThickIcon';
+import ArrowDown from 'mdi-react/ArrowDownIcon';
+import ArrowCollapseDownIcon from "mdi-react/ArrowCollapseDownIcon";
 import PropTypes from 'prop-types';
 import AppConfiguration from "../../controler/AppConfiguration";
 import BaseFlowDataType from "../../store/dataTypes/BaseFlowDataType";
@@ -165,6 +167,18 @@ class FlowComponent extends Component {
         }else return '';
     }
 
+    renderArrow(){
+      if (this.props.showArrow){
+        if(this.props.arrowIconType === 'container'){
+          return <ArrowCollapseDownIcon size={35} color="#3f51b5" className="arrow arrowCollapse"/>
+        }else{
+          return <ArrowDown size={40} color="#3f51b5" className="arrow"/>
+        }
+
+      }
+      return '';
+    }
+
 
     render() {
 
@@ -194,7 +208,7 @@ class FlowComponent extends Component {
                     {this.config.label}
                 </Typography>
             </div>
-            <ArrowDownThick size={70} color="#3f51b5" className="arrow"/>
+          { this.renderArrow()}
             <FlowDialog contentComponent={FlowComponentsList} onClose={this.onAddClose}  title="New Component"
                         ref={(addDialog) => this.addDialog = addDialog}  />
             {this.renderEditorDialog()}
@@ -208,7 +222,8 @@ class FlowComponent extends Component {
 FlowComponent.defaultProps = {
     disableAppend: false,
     disableDelete: false,
-    allowInto: false
+    allowInto: false,
+    showArrow:true,
 };
 
 
@@ -223,6 +238,8 @@ FlowComponent.propTypes = {
     allowAppend: PropTypes.bool,
     disableDelete: PropTypes.bool,
     allowInto: PropTypes.bool,
+    showArrow:PropTypes.bool,
+    arrowIconType:PropTypes.string
 };
 
 export default FlowComponent;

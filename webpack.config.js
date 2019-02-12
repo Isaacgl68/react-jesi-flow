@@ -5,6 +5,8 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const devMode = process.env.NODE_ENV !== 'production';
 
 let context = resolve('src');
+//let host = 'localhost';
+let host = 'isaacg02';
 
 module.exports = {
 	devtool: 'source-map',
@@ -12,9 +14,10 @@ module.exports = {
 		app: ['babel-polyfill', './']
 	},
 	devServer: {
+		host:host,
 		proxy: {
 			'/api': {
-				target: 'http://localhost:3000',
+				target: 'http://' + host +':3000',
 				pathRewrite: {'^/api' : ''}
 			}
 		}
