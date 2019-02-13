@@ -5,6 +5,7 @@ import '../dialogs.scss';
 import TextField from "@material-ui/core/TextField";
 import { observer } from "mobx-react";
 import { observable } from "mobx";
+import Store from './../../../store/Store'
 
 
 @observer
@@ -28,7 +29,7 @@ class AssignEditor extends Component {
 
     getValue() {
         const {dataType} = this.props;
-        dataType.properties = Object.assign(dataType.properties, this.workingData);
+        Store.assignProperties(dataType,this.workingData);
         return dataType;
 
     }

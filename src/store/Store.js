@@ -32,12 +32,26 @@ class Store {
 		}else{
 			targetArray.unshift(newComp);
 		}
+		this.undoFlowTree = null;
 	}
 
 	@action deleteComponent(componentkey, targetArray){
 		this.undoFlowTree = cloneDeep(this.flowTree);
 		const index = targetArray.findIndex(component => component.key === componentkey);
 		targetArray.splice(index, 1);
+	}
+
+	@action assignProperties(dataType,workingData){
+		return Object.assign(dataType.properties, workingData);
+		this.undoFlowTree = null;
+	}
+
+	@action undoLast(){
+		if (this.undoFlowTree){
+			this.flowTree = this.undoFlowTree;
+			this.undoFlowTree = null;
+		}
+
 	}
 
 	@action cutComponent(componentkey, targetArray){

@@ -12,6 +12,8 @@ import FlowComponent from "./FlowComponent";
 import Paper from "@material-ui/core/Paper";
 import Store from "../../store/Store";
 import CollapseIcon from "../ui/CollapseIcon";
+import {SnackbarProvider, withSnackbar} from 'notistack';
+import Button from "@material-ui/core/Button";
 
 
 
@@ -22,6 +24,7 @@ class SimpleFlowContainer extends Component {
 state = {
     isCollapse: false
 }
+    undoKey
 
     constructor(props) {
         super(props);
@@ -36,6 +39,7 @@ state = {
         this.onPasteInsert = this.onPasteInsert.bind(this);
         this.onPasteAppend = this.onPasteAppend.bind(this);
         this.onCollapse = this.onCollapse.bind(this);
+        this. onUndo = this.onUndo.bind(this);
 
     }
     onInsert(newComponentName ){
@@ -52,17 +56,31 @@ state = {
     }
     onDelete(childKey){
         Store.deleteComponent(childKey,this.props.flowData.children );
+        this.undoKey = this.props.enqueueSnackbar('Component Deleted.', {
+            action: <Button color="inherit" size="small">UNDO</Button>,
+            onClickAction: this.onUndo,
+            autoHideDuration: 10000,
+        });
     }
     onDeleteSelf(){
-        if (this.props.onDelete){
+        if (!this.props.isRoot && this.props.onDelete){
             this.props.onDelete(this.props.flowData.key);
         }
     }
-    onCut(item){
+
+    onUndo(){
+        Store.undoLast();
+        this.props.closeSnackbar(this.undoKey);
+    }
+    onCut(item) {
         Store.cutComponent(item, this.props.flowData.children);
+        this.undoKey = this.props.enqueueSnackbar('Component Cut.', {
+            action: <Button color="inherit" size="small">UNDO</Button>,
+           onClickAction: this.onUndo
+        });
     }
     onCutSelf(){
-        if (this.props.onCut){
+        if (!this.props.isRoot && this.props.onCut){
             this.props.onCut(this.props.flowData.key);
         }
     }
@@ -133,6 +151,7 @@ SimpleFlowContainer.propTypes = {
     flowData: PropTypes.PropTypes.object.isRequired,
     onDelete: PropTypes.func,
     onCut: PropTypes.func,
+    isRoot:PropTypes.bool
 };
 
-export default SimpleFlowContainer;
+export default withSnackbar(SimpleFlowContainer);

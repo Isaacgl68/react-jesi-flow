@@ -29,7 +29,7 @@ class StartEditor extends Component {
 
     getValue() {
         const {dataType} = this.props;
-        dataType.properties = Object.assign(dataType.properties, this.workingData);
+        Store.assignProperties(dataType,this.workingData);
         Store.setState({flowId:this.workingData.id});
         return dataType;
 

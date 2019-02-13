@@ -7,6 +7,7 @@ import TextField from "@material-ui/core/TextField";
 import { observer } from "mobx-react";
 import { observable } from "mobx";
 import {pick} from "lodash";
+import Store from './../../../store/Store'
 
 
 @observer
@@ -29,7 +30,7 @@ class ConditionEditor extends Component {
 
     getValue() {
         const {dataType} = this.props;
-        dataType.properties = Object.assign(dataType.properties, this.workingData);
+        Store.assignProperties(dataType,this.workingData);
         return dataType;
 
     }

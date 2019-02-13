@@ -15,6 +15,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
+import Store from './../../../store/Store'
 
 
 @observer
@@ -40,7 +41,7 @@ class TaskEditor extends Component {
 
     getValue() {
         const {dataType} = this.props;
-        dataType.properties = Object.assign(dataType.properties, this.workingData);
+        Store.assignProperties(dataType,this.workingData);
         return dataType;
 
     }

@@ -9,6 +9,7 @@ import { observable } from "mobx";
 import {pick} from "lodash";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
+import Store from './../../../store/Store'
 
 
 @observer
@@ -32,7 +33,7 @@ class XpathEditor extends Component {
 
     getValue() {
         const {dataType} = this.props;
-        dataType.properties = Object.assign(dataType.properties, this.workingData);
+        Store.assignProperties(dataType,this.workingData);
         return dataType;
 
     }
