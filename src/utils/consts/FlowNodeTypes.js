@@ -9,4 +9,5 @@ export const WHILE = 'while';
 export const WHILE_CHILD = 'while-child';
 export const TASK = 'task';
 export const XPATH = 'xpath';
+export const FLOW = 'flow';
 

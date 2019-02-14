@@ -8,6 +8,7 @@ import CodeEqualIcon from 'mdi-react/CodeEqualIcon';
 import CodeNotEqualIcon from 'mdi-react/CodeNotEqualIcon';
 import AccountIcon from 'mdi-react/AccountIcon';
 import XamlIcon from 'mdi-react/XamlIcon';
+import SitemapIcon from 'mdi-react/SitemapIcon';
 
 
 
@@ -32,6 +33,8 @@ import XpathDataType from "../store/dataTypes/XpathDataType";
 import XpathEditor from "../components/dialogs/editors/XpathEditor";
 import StartDataType from "../store/dataTypes/StartDataType";
 import StartEditor from "../components/dialogs/editors/StartEditor";
+import FlowDataType from "../store/dataTypes/FlowDataType";
+import FlowEditor from "../components/dialogs/editors/FlowEditor";
 
 export const Icons = {
     startIcon:DonutLarge,
@@ -43,7 +46,8 @@ export const Icons = {
     while:Sync,
     defaultIcon:DefaultIcon,
     task:AccountIcon,
-    xpath:XamlIcon
+    xpath:XamlIcon,
+    flow:SitemapIcon
 }
 export function initTypeConfigMap(){
     return new Map([
@@ -64,6 +68,8 @@ export function initTypeConfigMap(){
         [FlowNodeTypes.TASK,{type:FlowNodeTypes.TASK, dataClass: TaskDataType, icon:Icons['task'],label: 'Task', editor:TaskEditor,
             component:FlowComponent }],
         [FlowNodeTypes.XPATH,{type:FlowNodeTypes.XPATH, dataClass: XpathDataType, icon:Icons['xpath'],label: 'XPath', editor:XpathEditor,
+            component:FlowComponent }],
+        [FlowNodeTypes.FLOW,{type:FlowNodeTypes.FLOW, dataClass: FlowDataType, icon:Icons['flow'],label: 'Call Flow', editor:FlowEditor,
             component:FlowComponent }],
     ]);
 }

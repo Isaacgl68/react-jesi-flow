@@ -3,10 +3,12 @@ body {
 }
 .root {
   flex-grow: 1;
-
+  .appBarColor {
+    background-color: #2196f3;
+  }
   .appBar {
     margin-bottom: 20px;
-    background-color: #2196f3;
+   /*background-color: #2196f3;*/
     z-index: 1300;
     .grow {
       flex-grow: 1;

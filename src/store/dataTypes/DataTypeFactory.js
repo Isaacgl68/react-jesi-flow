@@ -6,6 +6,7 @@ import WhileDataType from './WhileDataType';
 import BaseFlowDataType from "./BaseFlowDataType";
 import TaskDataType from "./TaskDataType";
 import XpathDataType from "./XpathDataType";
+import FlowDataType from "./FlowDataType";
 
 const classes ={
     BaseFlowDataType,
@@ -16,6 +17,7 @@ const classes ={
     WhileDataType,
     TaskDataType,
     XpathDataType,
+    FlowDataType
 
 }
 

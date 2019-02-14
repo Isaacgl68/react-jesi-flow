@@ -6,18 +6,20 @@ class BaseFlowDataType {
     @observable objectIndex = 0;
     key;
     type;
+    annotationText;
 
-    constructor({objectIndex, key, type } = {}){
+    constructor({objectIndex, key, type, annotationText = '' } = {}){
 
         this.key = key || uuidv1();
         this.type = type;
         this.objectIndex = objectIndex;
+        this.annotationText = annotationText;
     }
     get toolTip() {return ''; }
 
     toJSON(){
-        let {key, type, objectIndex} = this;
-        return {key, type, objectIndex};
+        let {key, type, objectIndex, annotationText} = this;
+        return {key, type, objectIndex, annotationText};
     }
 
     static fromJSON(jsonObj){
