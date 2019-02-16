@@ -28,9 +28,10 @@ const newTypesSelectionList = [
       FlowNodeTypes.TASK,
       FlowNodeTypes.XPATH,
       FlowNodeTypes.EXIT,
+      FlowNodeTypes.FLOW,
       
     ]},
-  {group:'containers',label:'Containers', isOpen:true, items:[
+  {group:'containers',label:'Containers', isOpen:false, items:[
       FlowNodeTypes.IF,
       FlowNodeTypes.WHILE,
     ]},

@@ -10,6 +10,7 @@ import {pick} from "lodash";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Store from './../../../store/Store'
+import Switch from "@material-ui/core/Switch";
 
 
 @observer
@@ -66,7 +67,7 @@ class XpathEditor extends Component {
                 />
                 <FormControlLabel
                     control={
-                        <Checkbox
+                        <Switch
                             checked={this.workingData.isArray}
                             onChange={this.handleChange('isArray')}
                             value="isArray"
@@ -74,6 +75,7 @@ class XpathEditor extends Component {
                         />
                     }
                     label="Is Array"
+                    labelPlacement="start"
                 />
 
             </Grid>

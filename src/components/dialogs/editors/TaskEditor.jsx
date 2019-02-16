@@ -5,17 +5,21 @@ import cloneDeep from 'lodash/cloneDeep';
 import '../dialogs.scss';
 import TextField from "@material-ui/core/TextField";
 import { observer } from "mobx-react";
-import { observable } from "mobx";
+import {computed, observable} from "mobx";
 import {pick} from "lodash";
 import ListItem from "@material-ui/core/ListItem";
 import List from "@material-ui/core/List";
-import ListItemText from "@material-ui/core/ListItemText";
-import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
 import Store from './../../../store/Store'
+import Select from "react-select/lib/Select";
+import FormLabel from "@material-ui/core/FormLabel";
+
+
+const operations = [{label:"CREATE" },{label:"START" },{label:"SUSPEND" }
+,{label:"RESUME" },{label:"COMPLETE" },{label:"REJECT"}];
 
 
 @observer
@@ -34,6 +38,14 @@ class TaskEditor extends Component {
         this.workingData = Object.assign(this.workingData,props.dataType.properties);
 
     }
+
+    @computed get selectOperation(){
+        return (this.workingData.operation)? {label : this.workingData.operation}: '';
+    }
+
+    handleSelectChange = name => (event) => {
+        this.workingData[name] =  event.label;
+    };
 
     handleChange = name => event => {
         this.workingData[name]= event.target.value;
@@ -80,23 +92,13 @@ class TaskEditor extends Component {
                     fullWidth
                 />
                 <FormControl className="formControl"  >
-                    <InputLabel htmlFor="operation">Operation</InputLabel>
-                <Select
-                    value={this.workingData.operation}
-                    onChange={this.handleChange('operation')}
-                    input={<Input name="operation" id="operation" />}
-                    className="selectEmpty"
-
-                >
-                    <MenuItem value="CREATE">CREATE</MenuItem>
-                    <MenuItem value="START">START</MenuItem>
-                    <MenuItem value="SUSPEND">SUSPEND</MenuItem>
-                    <MenuItem value="RESUME">RESUME</MenuItem>
-                    <MenuItem value="ASSIGN">ASSIGN</MenuItem>
-                    <MenuItem value="COMPLETE">COMPLETE</MenuItem>
-                    <MenuItem value="REJECT">REJECT</MenuItem>
-                </Select>
+                    <FormLabel className="marginBottom" >Operation</FormLabel>
+                    <Select      defaultOptions
+                                 loadOptions={operations}
+                                 value={this.selectOperation}
+                                 onChange={this.handleSelectChange('operation')}/>
                 </FormControl>
+
 
 
             </Grid>

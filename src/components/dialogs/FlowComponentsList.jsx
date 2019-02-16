@@ -16,7 +16,7 @@ class FlowComponentsList extends Component {
 
     state = {
         selectedItem: null,
-        isCollapse:{},
+        isCollapse:{ components: true},
     };
 
     constructor(props) {

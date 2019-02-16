@@ -60,25 +60,50 @@
     {
       "key": "b98210b0-2e49-11e9-91e0-8519cd02a46a",
       "type": "start",
+      "annotationText": "",
       "children": [
         {
           "key": "e4e2e250-2e4b-11e9-9aa8-858d09725218",
           "type": "xpath",
+          "annotationText": "",
           "query": "",
           "input": "x123",
           "isArray": false
         },
         {
+          "key": "8a7d29e0-3203-11e9-a9cb-e7e2190324a6",
+          "type": "flow",
+          "annotationText": "",
+          "flowName": "",
+          "defaultFlowName": "",
+          "input": "",
+          "parameters": "",
+          "synchronic": true,
+          "checkExist": false,
+          "parallelThreadQueue": "",
+          "correlationID": "",
+          "sourceID": "",
+          "callerID": "",
+          "userID": "",
+          "activityCode": "",
+          "statusCode": "",
+          "filter": "",
+          "noteText": ""
+        },
+        {
           "key": "fac56cc0-2e4e-11e9-9ba2-2b9e6f49301f",
           "type": "if",
+          "annotationText": "",
           "children": [
             {
               "key": "fac56cc1-2e4e-11e9-9ba2-2b9e6f49301f",
               "type": "if-if-child",
+              "annotationText": "",
               "children": [
                 {
                   "key": "202572d0-2e4f-11e9-a191-cbed0983bc2e",
                   "type": "task",
+                  "annotationText": "",
                   "name": "",
                   "id": "",
                   "input": "",
@@ -89,6 +114,7 @@
             {
               "key": "fac593d0-2e4e-11e9-9ba2-2b9e6f49301f",
               "type": "if-else-child",
+              "annotationText": "",
               "children": []
             }
           ],
@@ -98,10 +124,12 @@
         {
           "key": "b9825ed1-2e49-11e9-91e0-8519cd02a46a",
           "type": "while",
+          "annotationText": "",
           "children": [
             {
               "key": "b98285e0-2e49-11e9-91e0-8519cd02a46a",
               "type": "task",
+              "annotationText": "",
               "name": "",
               "id": "",
               "input": "",
@@ -110,10 +138,12 @@
             {
               "key": "b98285e1-2e49-11e9-91e0-8519cd02a46a",
               "type": "while",
+              "annotationText": "",
               "children": [
                 {
                   "key": "b98285e2-2e49-11e9-91e0-8519cd02a46a",
                   "type": "assign",
+                  "annotationText": "",
                   "name": "",
                   "from": "",
                   "to": ""
@@ -127,6 +157,7 @@
         {
           "key": "b98285e3-2e49-11e9-91e0-8519cd02a46a",
           "type": "end",
+          "annotationText": "",
           "text": ""
         }
       ],
@@ -179,5 +210,60 @@
       ],
       "id": "4"
     }
-  ]
-}
+  ],
+  "flowsSLV": [
+    {
+      "id": "1",
+      "payload": [
+        {
+          "label": "flow1"
+        },
+        {
+          "label": "flow2"
+        },
+        {
+          "label": "flow3"
+        },
+        {
+          "label": "flow4"
+        }
+      ]
+    }
+  ],
+  "flowVariablesSLV": [
+    {
+      "id": "1",
+      "payload": [
+        {
+          "label": "variable1"
+        },
+        {
+          "label": "variable2"
+        },
+        {
+          "label": "variable2"
+        },
+        {
+          "label": "variable4"
+        }
+      ],
+      "queueSLV": [
+        {
+          "id": "1",
+          "payload": [
+            {
+              "label": "Queue 1"
+            },
+            {
+              "label": "Queue 2"
+            },
+            {
+              "label": "Queue 3"
+            },
+            {
+              "label": "Queue 4"
+            }
+          ]
+        }
+      ]
+    }
