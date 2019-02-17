@@ -115,7 +115,7 @@ class FlowEditor extends Component {
 
 
     render() {
-        const showSyncGroup = (this.workingData.synchronic)?{}:{display:'none'};
+        const showSyncGroup = (this.workingData.synchronic)?{display:'none'}:{};
         const defaultNameGroup = (this.workingData.checkExist)?{}:{display:'none'};
 
         return <form style={{height: 500}}>
@@ -124,7 +124,7 @@ class FlowEditor extends Component {
                     General Info
                 </Typography>
                 <Grid container className="marginBottom" direction="row" justify="flex-start" alignItems="center" >
-                    <FormControl className="formControl">
+                    <FormControl required  className="formControl">
                         <FormLabel className="marginBottom" >Flow Name</FormLabel>
                         <AsyncSelect cacheOptions defaultOptions
                                      loadOptions={this.loadFlowsList}
@@ -330,8 +330,6 @@ class FlowEditor extends Component {
                         label="Parameters"
                         className="textField"
                         disabled
-                        multiline
-                        rows={2}
                         value={this.workingData.parameters}
                         onChange={this.handleChange('parameters')}
                         margin="normal"
