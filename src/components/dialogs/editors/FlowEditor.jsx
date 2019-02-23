@@ -19,6 +19,8 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormGroup from "@material-ui/core/FormGroup";
 import IconButton from "@material-ui/core/IconButton";
 import FunctionVariantIcon from 'mdi-react/FunctionVariantIcon';
+import EditSelect from "../../ui/EditSelect";
+import ParameterEditor from "./ParameterEditor";
 
 
 
@@ -45,8 +47,7 @@ class FlowEditor extends Component {
         noteText: '',
 
     };
-    @observable isNameEdit = false;
-    @observable isDefNameEdit = false;
+    @observable viewState
 
     constructor(props) {
         super(props);
@@ -54,21 +55,13 @@ class FlowEditor extends Component {
 
     }
 
-    @computed get selectFlowName(){
-        return (this.workingData.flowName)? {label : this.workingData.flowName}: '';
-    }
-
-    @computed get selectDefaultFlowName(){
-
-        return (this.workingData.defaultFlowName)? {label : this.workingData.defaultFlowName}: '';
-
-    }
 
     @computed get selectInput(){
-        return (this.workingData.input)? {label : this.workingData.input}: '';
+        return (this.workingData.input)? {label : this.workingData.input, value:this.workingData.input}: '';
     }
     @computed get selectQueue(){
-        return (this.workingData.parallelThreadQueue)? {label : this.workingData.parallelThreadQueue}: '';
+        return (this.workingData.parallelThreadQueue)? {label : this.workingData.parallelThreadQueue, value:this.workingData.parallelThreadQueue}
+        : '';
     }
 
 
@@ -114,38 +107,21 @@ class FlowEditor extends Component {
 
 
 
-    render() {
+    renderMain() {
         const showSyncGroup = (this.workingData.synchronic)?{display:'none'}:{};
         const defaultNameGroup = (this.workingData.checkExist)?{}:{display:'none'};
 
-        return <form style={{height: 500}}>
-            <Grid container direction="column" justify="center" alignItems="flex-start" >
+        return <Fragment><Grid container direction="column" justify="center" alignItems="flex-start" >
                 <Typography variant="h6" color="textPrimary" className="marginBottom">
                     General Info
                 </Typography>
-                <Grid container className="marginBottom" direction="row" justify="flex-start" alignItems="center" >
-                    <FormControl required  className="formControl">
-                        <FormLabel className="marginBottom" >Flow Name</FormLabel>
-                        <AsyncSelect cacheOptions defaultOptions
-                                     loadOptions={this.loadFlowsList}
-                                     value={this.selectFlowName}
-                                     onChange={this.handleSelectChange('flowName')}/>
-
-                    </FormControl>
-                    <FormControlLabel
-                        control={
-                            <Switch className="marginLeft"
-                                checked={this.isNameEdit}
-                                onChange={this.handleEditChange('isNameEdit')}
-                                value="isNameEdit"
-                                color="primary"
-                            />
-                        }
-                        label="Edit"
-                        labelPlacement="end"
+                    <EditSelect
+                        loadOptions={this.loadFlowsList}
+                        value={this.workingData.flowName}
+                        formLabel="Flow Name"
+                        onChange={this.handleChange('flowName')}
                     />
-                </Grid>
-                <FormControl className="formControl">
+                <FormControl className="formControl" fullWidth>
                     <FormLabel className="marginBottom" >Input</FormLabel>
                     <AsyncSelect cacheOptions defaultOptions
                                  loadOptions={this.loadFlowVarList}
@@ -178,28 +154,13 @@ class FlowEditor extends Component {
                     labelPlacement="end"
                 />
                 </FormGroup>
-                <Grid container className="marginBottom" direction="row" justify="flex-start" alignItems="center" style={defaultNameGroup}>
-                    <FormControl className="formControl">
-                        <FormLabel  className="marginBottom" >Default Flow</FormLabel>
-                        <AsyncSelect cacheOptions defaultOptions
-                                     loadOptions={this.loadFlowsList}
-                                     value={this.selectDefaultFlowName}
-                                     onChange={this.handleSelectChange('defaultFlowName')}/>
-
-                    </FormControl>
-                    <FormControlLabel
-                        control={
-                            <Switch className="marginLeft"
-                                checked={this.isDefNameEdit}
-                                onChange={this.handleEditChange('isDefNameEdit')}
-                                value="isEdit"
-                                color="primary"
-                            />
-                        }
-                        label="Edit"
-                        labelPlacement="end"
-                    />
-                </Grid>
+                <EditSelect
+                    style={defaultNameGroup}
+                    loadOptions={this.loadFlowsList}
+                    value={this.workingData.defaultFlowName}
+                    formLabel="Default Flow"
+                    onChange={this.handleChange('defaultFlowName')}
+                />
 
             </Grid>
             <Grid container direction="column" justify="center" alignItems="flex-start" style={showSyncGroup}>
@@ -209,7 +170,7 @@ class FlowEditor extends Component {
                 <div className="marginBottom marginLeft"><Typography variant="h6"  color="textPrimary" >
                     Header Fields
                 </Typography></div>
-                <FormControl className="formControl">
+                <FormControl className="formControl" fullWidth>
                     <FormLabel className="marginBottom" >Parallel Queue</FormLabel>
                     <AsyncSelect cacheOptions defaultOptions
                                  loadOptions={this.loadQueueList}
@@ -334,15 +295,40 @@ class FlowEditor extends Component {
                         onChange={this.handleChange('parameters')}
                         margin="normal"
                     />
-                    <IconButton className="marginLeft" color="primary" aria-label="edit">
+                    <IconButton className="marginLeft" color="primary" aria-label="edit" onClick={()=> this.viewState = 'parameters' }>
                         <FunctionVariantIcon />
                     </IconButton>
                 </Grid>
             </Grid>
-        </form>
+        </Fragment>
+    }
+
+    renderParameterEditor() {
+        return <ParameterEditor source={this.workingData.parameters} onBack={this.onParametersBack}/>;
+    }
+
+    renderByView(){
+         if (this.viewState === 'parameters' ){
+            return this.renderParameterEditor();
+        }else{
+            return this.renderMain();
+        }
+    }
+
+    render() {
+            return <form style={{height: 500}}>
+                { this.renderByView()}
+            </form>
     }
 
 
+    onParametersBack =  (success,value) => {
+        if (success){
+            this.workingData.parameters =value;
+        }
+        this.viewState = null;
+
+    }
 };
 
 FlowEditor.propTypes = {

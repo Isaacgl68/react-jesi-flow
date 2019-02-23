@@ -22,6 +22,7 @@ import Grid from "@material-ui/core/Grid";
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import lightBlue from '@material-ui/core/colors/lightBlue';
 import SourcePanel from "./app/SourcePanel";
+import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 
 
 const muiTheme = createMuiTheme ({

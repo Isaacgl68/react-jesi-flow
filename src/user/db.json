@@ -4,7 +4,7 @@
     {"type":  "assign"},
     {"type": "while",
       "children": [{"type":  "assign"},
-        {"type": "while",
+        {"type": "wile",
           "children": [{"type":  "assign"}]
         }
       ]

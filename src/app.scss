@@ -29,6 +29,9 @@ body {
   .drawerPaper {
     background-color: lightgray;
   }
+  button:focus{
+    outline: none;
+  }
 
 }
 

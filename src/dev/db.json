@@ -216,16 +216,20 @@
       "id": "1",
       "payload": [
         {
-          "label": "flow1"
+          "label": "flow1",
+          "value": "flow1"
         },
         {
-          "label": "flow2"
+          "label": "flow2",
+          "value": "flow2"
         },
         {
-          "label": "flow3"
+          "label": "flow3",
+          "value": "flow3"
         },
         {
-          "label": "flow4"
+          "label": "flow4",
+          "value": "flow4"
         }
       ]
     }
@@ -235,16 +239,20 @@
       "id": "1",
       "payload": [
         {
-          "label": "variable1"
+          "label": "variable1",
+          "value": "variable1"
         },
         {
-          "label": "variable2"
+          "label": "variable2",
+          "value": "variable2"
         },
         {
-          "label": "variable2"
+          "label": "variable2",
+          "value": "variable2"
         },
         {
-          "label": "variable4"
+          "label": "variable4",
+          "value": "variable4"
         }]
       }
       ],
@@ -253,16 +261,20 @@
           "id": "1",
           "payload": [
             {
-              "label": "Queue 1"
+              "label": "Queue 1",
+              "value": "Queue1"
             },
             {
-              "label": "Queue 2"
+              "label": "Queue 2",
+              "value": "Queue2"
             },
             {
-              "label": "Queue 3"
+              "label": "Queue 3",
+              "value": "Queue3"
             },
             {
-              "label": "Queue 4"
+              "label": "Queue 4",
+              "value": "Queue4"
             }
           ]
         }
