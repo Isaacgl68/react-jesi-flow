@@ -17,7 +17,9 @@ import TextField from "@material-ui/core/TextField";
 class EditSelect extends Component {
 
   state = {
-    editOn: false
+    editOn: false,
+    value:'',
+    isManagingFocus: false,
   }
 
   constructor(props) {
@@ -26,39 +28,79 @@ class EditSelect extends Component {
 
 
   componentDidMount(){
-
+    this.setState({value: this.props.value});
   }
 
   get selectValue(){
-    return (this.props.value)? {label : this.props.value,value:this.props.value}:'';
+    return (this.state.value)? {label : this.state.value,value:this.state.value}:'';
   }
 
   handleSelectChange =  (event) => {
+    this.setState({value:event.label})
     if (this.props.onChange){
       this.props.onChange({target:{ value:event.label}})
     }
   };
 
+  getValue () {
+    return this.state.value;
+  }
+
   handleChange =  (event) => {
+    this.setState({value:event.target.value})
     if (this.props.onChange) {
       this.props.onChange(event);
     }
+    //if(this.props.onUpdate) {
+    //  this.props.onUpdate(event.target.value);
+    //}
   };
+  onBlur = (event) => {
+    const relatedTarget = event.relatedTarget;
+    if (this.props.onBlur && relatedTarget.className.indexOf('ignoreBlur') === -1) {
+      //this.props.onBlur(event);
+    }
+  }
+
+  _onBlur = () => {
+    this._timeoutID = setTimeout(() => {
+      if (this.state.isManagingFocus) {
+        if (this.props.onBlur){
+          this.props.onBlur(event);
+        }
+        this.setState({
+          isManagingFocus: false,
+        });
+      }
+    }, 0);
+  }
+
+  _onFocus = () => {
+    clearTimeout(this._timeoutID);
+    if (!this.state.isManagingFocus) {
+      this.setState({
+        isManagingFocus: true,
+      });
+    }
+  }
+
   renderAsText(){
-    return <FormControl required  className="formControl">
-      <FormLabel className="" >{this.props.formLabel}</FormLabel>
+    const labelStyle = (this.props.formLabel)? {}:{display:'none'};
+    return <FormControl required  className="formControl ignoreBlur" >
+      <FormLabel className="" style={labelStyle}>{this.props.formLabel}</FormLabel>
       <TextField
         id="sourceText"
-        className="textField"
-        value={this.props.value}
+        className="textField ignoreBlur"
+        value={this.state.value}
         onChange={this.handleChange}
         margin="normal"
     /></FormControl>
   }
   renderAsSelect(){
-   return <FormControl required  className="formControl">
-      <FormLabel className="" >{this.props.formLabel}</FormLabel>
-      <AsyncSelect cacheOptions defaultOptions className="aaa"
+    const labelStyle = (this.props.formLabel)? {}:{display:'none'};
+   return <FormControl required  className="formControl" >
+      <FormLabel className="" style={labelStyle}>{this.props.formLabel}  </FormLabel>
+      <AsyncSelect cacheOptions defaultOptions className="aaa ignoreBlur"
                    loadOptions={this.props.loadOptions}
                    value={this.selectValue}
                    isSearchable={this.props.isSearchable}
@@ -68,9 +110,12 @@ class EditSelect extends Component {
   }
 
   render() {
-    return <Grid container className="marginBottom" direction="row" justify="flex-start" alignItems="center" style={this.props.style}>
+    const iconTop = (this.props.formLabel)? 28:9;
+    return <Grid  onBlur={this._onBlur}
+                  onFocus={this._onFocus} container className="marginBottom" wrap="nowrap"
+                  direction="row" justify="flex-start" alignItems="center" style={this.props.style} >
       { this.state.editOn ? this.renderAsText():this.renderAsSelect() }
-      <IconButton style={{marginLeft:5, marginTop:28, outline:'none'}} className="marginLeft" color="primary"
+      <IconButton style={{marginLeft:5, marginTop:iconTop, outline:'none'}} className="marginLeft ignoreBlur" color="primary"
           onClick={() => this.setState({ editOn: !this.state.editOn })}
       >
         <ToggleIcon
@@ -89,6 +134,7 @@ EditSelect.propTypes = {
   value: PropTypes.string,
   formLabel:PropTypes.string,
   onChange: PropTypes.func,
+  onUpdate: PropTypes.func,//for table cell editor
   loadOptions: PropTypes.func.isRequired,
   isSearchable:PropTypes.bool
 };

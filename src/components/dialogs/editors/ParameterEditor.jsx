@@ -15,55 +15,26 @@ import {IconButton} from "@material-ui/core";
 import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete'
 import CheckIcon from 'mdi-react/CheckIcon'
-import BackburgerIcon from 'mdi-react/BackburgerIcon'
+import BackburgerIcon from 'mdi-react/BackburgerIcon';
+import EditSelect from "../../ui/EditSelect";
 
 
-const columns = [ {
-    dataField: 'variableName',
-    text: 'Variable Name',
-    editor: {
-        type: Type.SELECT,
-        options: [{
-            value: 'A',
-            label: 'A'
-        }, {
-            value: 'B',
-            label: 'B'
-        }, {
-            value: 'C',
-            label: 'C'
-        }, {
-            value: 'D',
-            label: 'D'
-        }, {
-            value: 'E',
-            label: 'E'
-        }]
-    }
-},
-    {
-        dataField: 'variableValue',
-        text: 'Variable Value',
-        editor: {
-            type: Type.SELECT,
-            options: [{
-                value: 'A',
-                label: 'A'
-            }, {
-                value: 'B',
-                label: 'B'
-            }, {
-                value: 'C',
-                label: 'C'
-            }, {
-                value: 'D',
-                label: 'D'
-            }, {
-                value: 'E',
-                label: 'E'
-            }]
-        }
-    }];
+const  options = [{
+    value: 'A',
+    label: 'A'
+}, {
+    value: 'B',
+    label: 'B'
+}, {
+    value: 'C',
+    label: 'C'
+}, {
+    value: 'D',
+    label: 'D'
+}, {
+    value: 'E',
+    label: 'E'
+}]
 
 @observer
 class ParameterEditor extends Component {
@@ -74,6 +45,32 @@ class ParameterEditor extends Component {
         selectedRow:[]
     }
     counter = 0;
+    columns = [ {
+        dataField: 'variableName',
+        text: 'Variable Name',
+        editorRenderer: (editorProps, value, row, column, rowIndex, columnIndex) => (
+            <EditSelect
+                loadOptions={this.loadList}
+                value={value}
+                { ...editorProps }
+            />
+        )
+    },
+        {
+            dataField: 'variableValue',
+            text: 'Variable Value',
+            editorRenderer: (editorProps, value, row, column, rowIndex, columnIndex) => (
+                <EditSelect
+                    loadOptions={this.loadList}
+                    value={value}
+                    { ...editorProps }
+                />
+            )
+        }];
+
+    loadList =() =>{
+        return Promise.resolve(options);
+    }
 
 
 
@@ -145,7 +142,7 @@ class ParameterEditor extends Component {
 
     render() {
 
-        return <Grid container direction="column" justify="center" alignItems="flex-start">
+        return <Grid container direction="column" justify="center" alignItems="flex-start" >
             <Grid container className="marginBottom" direction="row" justify="flex-start" alignItems="center" >
                 <IconButton onClick={this.onDelete}>
                     <DeleteIcon/>
@@ -156,17 +153,20 @@ class ParameterEditor extends Component {
 
 
             </Grid>
+            <div style={{position: 'relative'}}>
                 <BootstrapTable
-                    style={{maxHeight:400 }}
+                    wrapperClasses="propsTable"
                     keyField="key"
                     data={ this.state.parameterLines }
-                    columns={ columns }
+                    columns={ this.columns }
                     cellEdit={ cellEditFactory({ mode: 'click', blurToSave: true }) }
                     selectRow={ { mode: 'radio', clickToSelect: false ,selected: this.state.selectedRow, onSelect:this.onSelect} }
                     striped
                     hover
                     condensed
+                    bootstrap4
                 />
+            </div>
             <Grid container className="marginBottom" direction="row" justify="flex-end" alignItems="center" >
                 <IconButton onClick={this.onCancel}>
                     <BackburgerIcon/>

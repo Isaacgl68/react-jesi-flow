@@ -10,7 +10,8 @@
   marginTop: 10px;
 }
 .aaa{    margin-top: 14px;
-  margin-bottom: 3px;}
+  margin-bottom: 3px;
+  z-index: 1000;}
 
 .marginBottom { margin-bottom: 8px;}
 .marginLeft { margin-left: 15px;}
@@ -18,3 +19,8 @@
 .MuiIconButton-root-472:focus{
   outline: none;
 }
+.propsTable{
+  max-height:400px;
+  overflow: auto;
+}
+.Select.is-open { position: relative; z-index: 1000; }
