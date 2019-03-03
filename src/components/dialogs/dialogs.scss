@@ -1,13 +1,13 @@
 .textField{
-  marginLeft: 5px;
-  marginRight: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 .formControl {
   margin: 5px;
   flex-grow: 1;
 }
 .selectEmpty{
-  marginTop: 10px;
+  margin-top: 10px;
 }
 .aaa{    margin-top: 14px;
   margin-bottom: 3px;
@@ -23,4 +23,3 @@
   max-height:400px;
   overflow: auto;
 }
-.Select.is-open { position: relative; z-index: 1000; }

@@ -216,19 +216,19 @@
       "id": "1",
       "payload": [
         {
-          "label": "flow1",
+          "label": "flow 1",
           "value": "flow1"
         },
         {
-          "label": "flow2",
+          "label": "flow 2",
           "value": "flow2"
         },
         {
-          "label": "flow3",
+          "label": "flow 3",
           "value": "flow3"
         },
         {
-          "label": "flow4",
+          "label": "flow 4",
           "value": "flow4"
         }
       ]
@@ -239,19 +239,19 @@
       "id": "1",
       "payload": [
         {
-          "label": "variable1",
+          "label": "variable 1",
           "value": "variable1"
         },
         {
-          "label": "variable2",
+          "label": "variable 2",
           "value": "variable2"
         },
         {
-          "label": "variable2",
-          "value": "variable2"
+          "label": "variable 3",
+          "value": "variable3"
         },
         {
-          "label": "variable4",
+          "label": "variable 4",
           "value": "variable4"
         }]
       }

@@ -126,6 +126,10 @@ class FlowEditor extends Component {
                     <AsyncSelect cacheOptions defaultOptions
                                  loadOptions={this.loadFlowVarList}
                                  value={this.selectInput}
+                                 styles={{ menuPortal: base => ({ ...base, zIndex: 9999 }) }}
+                                 menuPortalTarget={document.body}
+                                 menuPosition={'absolute'}
+                                 menuPlacement={'bottom'}
                                  onChange={this.handleSelectChange('input')}/>
                 </FormControl>
                 <FormGroup row>
@@ -173,6 +177,10 @@ class FlowEditor extends Component {
                 <FormControl className="formControl" fullWidth>
                     <FormLabel className="marginBottom" >Parallel Queue</FormLabel>
                     <AsyncSelect cacheOptions defaultOptions
+                                 styles={{ menuPortal: base => ({ ...base, zIndex: 9999 }) }}
+                                 menuPortalTarget={document.body}
+                                 menuPosition={'absolute'}
+                                 menuPlacement={'bottom'}
                                  loadOptions={this.loadQueueList}
                                  value={this.selectQueue}
                                  onChange={this.handleSelectChange('parallelThreadQueue')}/>

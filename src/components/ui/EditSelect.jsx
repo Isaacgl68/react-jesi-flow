@@ -9,6 +9,7 @@ import IconButton  from '@material-ui/core/IconButton';
 import PencilIcon from 'mdi-react/PencilIcon';
 import PencilIOffIcon from 'mdi-react/PencilOffIcon';
 import TextField from "@material-ui/core/TextField";
+import '../dialogs/dialogs.scss'
 
 
 
@@ -29,6 +30,10 @@ class EditSelect extends Component {
 
   componentDidMount(){
     this.setState({value: this.props.value});
+  }
+  componentWillUnmount(){
+    clearTimeout(this._timeoutID);
+    this._timeoutID  = null;
   }
 
   get selectValue(){
@@ -51,16 +56,7 @@ class EditSelect extends Component {
     if (this.props.onChange) {
       this.props.onChange(event);
     }
-    //if(this.props.onUpdate) {
-    //  this.props.onUpdate(event.target.value);
-    //}
   };
-  onBlur = (event) => {
-    const relatedTarget = event.relatedTarget;
-    if (this.props.onBlur && relatedTarget.className.indexOf('ignoreBlur') === -1) {
-      //this.props.onBlur(event);
-    }
-  }
 
   _onBlur = () => {
     this._timeoutID = setTimeout(() => {
@@ -68,9 +64,11 @@ class EditSelect extends Component {
         if (this.props.onBlur){
           this.props.onBlur(event);
         }
-        this.setState({
-          isManagingFocus: false,
-        });
+        if (this._timeoutID) {
+          this.setState({
+            isManagingFocus: false,
+          });
+        }
       }
     }, 0);
   }
@@ -97,14 +95,20 @@ class EditSelect extends Component {
     /></FormControl>
   }
   renderAsSelect(){
+
     const labelStyle = (this.props.formLabel)? {}:{display:'none'};
    return <FormControl required  className="formControl" >
       <FormLabel className="" style={labelStyle}>{this.props.formLabel}  </FormLabel>
-      <AsyncSelect cacheOptions defaultOptions className="aaa ignoreBlur"
+      <AsyncSelect cacheOptions defaultOptions className="aaa"
+                   styles={{ menuPortal: base => ({ ...base, zIndex: 9999 }) }}
+                   menuPortalTarget={document.body}
+                   menuPosition={'absolute'}
+                   menuPlacement={'bottom'}
                    loadOptions={this.props.loadOptions}
                    value={this.selectValue}
                    isSearchable={this.props.isSearchable}
                    onChange={this.handleSelectChange}/>
+
 
     </FormControl>
   }

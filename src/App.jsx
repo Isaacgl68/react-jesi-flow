@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import data from './user/db';
 import Store from './store/Store'
 
 import FlowCanvasPanel from './app/FlowCanvasPanel'
@@ -45,7 +44,6 @@ export default class App extends Component {
 	}
 	componentDidMount(){
 		AppModel.getFlow();
-		//Promise.resolve(data).then(Store.flowTreeFromJSON);
 
 	}
 
@@ -66,9 +64,10 @@ export default class App extends Component {
 		const drawerPaper = (this.state.drawerNotOpenedYet)? 'drawerPaper' : 'drawerPaper drawerOpen';
 		const drawer = (this.state.drawerNotOpenedYet) ? 'drawer ' : 'drawer drawerOpen';
 		const {activeTab} = this.state;
+		// <MuiThemeProvider theme={muiTheme}>
 		return <div className="root">
-			<MuiThemeProvider theme={muiTheme}>
-			<AppBar position="sticky" color="primary" className="appBar"
+
+			<AppBar position="sticky" color="primary" className="appBar"  style={{backgroundColor: lightBlue["500"]}}
 			>
 				<Toolbar>
 					<IconButton className="appMenuButton" color="inherit" aria-label="Menu">
@@ -78,10 +77,10 @@ export default class App extends Component {
 					<Grid container direction="row"
 								justify="flex-start"
 								alignItems="center" >
-					<Typography variant="h5" color="textPrimary" >
+					<Typography variant="h5" color="textPrimary" style={{marginRight:15}} >
 						Flow Designer
 					</Typography>
-					<Tabs value={activeTab} textColor="secondary" onChange={this.handleTabChange}>
+					<Tabs value={activeTab}  onChange={this.handleTabChange}>
 						<Tab label="Design" />
 						<Tab label="Source" />
 						<Tab label="Test" />
@@ -97,7 +96,6 @@ export default class App extends Component {
 				</Toolbar>
 
 			</AppBar>
-			</MuiThemeProvider>
 			<Drawer
 				className={drawer}
 				variant="persistent"
@@ -109,9 +107,9 @@ export default class App extends Component {
 			</Drawer>
 			{activeTab === 0 && <FlowCanvasPanel/>}
 			{activeTab === 1 && <SourcePanel/>}
-			{activeTab === 2 && <Typography variant="h5" color="textPrimary" >
+			{activeTab === 2 && <Grid container alignItems="center"justify="center"><Typography variant="h5" color="textPrimary" >
 				{'Under Constriction!\n Please visit us again. It is almost ready (summer 2025)'}
-			</Typography>}
+			</Typography></Grid>}
 		</div>;
 	}
 }

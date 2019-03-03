@@ -15,9 +15,10 @@ module.exports = {
 	},
 	devServer: {
 		host:host,
+		port:9090,
 		proxy: {
 			'/api': {
-				target: 'http://' + host +':3000',
+				target: 'http://' + host +':9001',
 				pathRewrite: {'^/api' : ''}
 			}
 		}

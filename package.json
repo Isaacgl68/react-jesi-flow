@@ -7,8 +7,8 @@
   "scripts": {
     "webpack": "webpack --mode=production",
     "webpack-dev": "webpack --mode=development",
-    "start": "webpack-dev-server --mode=development --hot --inline",
-    "start:rest": "json-server --watch src/dev/db.json --port 3000 --host localhost",
+    "start": "webpack-dev-server --mode=development --hot --inline ",
+    "start:rest": "json-server --watch src/dev/db.json --port 9001 --host localhost",
     "dev": "npm-run-all --parallel start start:rest",
     "test": "jest"
   },

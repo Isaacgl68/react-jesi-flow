@@ -33,9 +33,9 @@ class CollapseIcon extends Component {
 
   render(){
     if (this.state.isCollapse) {
-      return <ChevronRightIcon className="collapse" onClick={this.onCollapse} />;
+      return <ChevronRightIcon className="collapseIcon" onClick={this.onCollapse} />;
     } else{
-      return <ChevronDownIcon className="collapse" onClick={this.onCollapse}/>;
+      return <ChevronDownIcon className="collapseIcon" onClick={this.onCollapse}/>;
     }
   }
 
